@@ -3,87 +3,664 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagrama de Acupuntura</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Recreación de Diagrama</title>
+
+    <!-- Carga de Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Estilos CSS personalizados --><style>
+        /* Estilos para las líneas diagonales (eliminados de los círculos, pero se mantiene la definición por si acaso) */
+        .diag-line {
+            position: absolute;
+            z-index: 5;
+            transform-origin: center;
+        }
+        .diag-green {
+            width: 150px;
+            height: 12px;
+            background-color: #34a853;
+            transform: rotate(-45deg);
+            left: -20px;
+            top: 70px;
+            border-radius: 6px;
+        }
+        .diag-orange {
+            width: 150px;
+            height: 12px;
+            background-color: #fbbc05;
+            transform: rotate(45deg);
+            right: -20px;
+            top: 70px;
+            border-radius: 6px;
+        }
+         .diag-blue {
+            width: 150px;
+            height: 12px;
+            background-color: #4285f4;
+            transform: rotate(45deg);
+            left: -20px;
+            top: 70px;
+            border-radius: 6px;
+        }
+        .diag-gray {
+            width: 150px;
+            height: 12px;
+            background-color: #bdc1c6;
+            transform: rotate(-45deg);
+            right: -20px;
+            top: 70px;
+            border-radius: 6px;
+        }
+
+        /* Estilos para el gráfico SVG interno */
+        .graph-svg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .graph-node circle {
+            stroke-width: 2;
+            transition: all 0.2s ease-in-out;
+        }
+        .graph-node text {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            font-weight: bold;
+            fill: black;
+            pointer-events: none;
+        }
+        .graph-node:hover circle {
+            transform: scale(1.1);
+            filter: brightness(1.1);
+        }
+        .graph-edge {
+            stroke: #333;
+            stroke-width: 1.5;
+            fill: none;
+        }
+    </style>
 </head>
-<body>
-    <div class="container">
-        <svg id="acupuncture-diagram" viewBox="0 0 500 400">
-            <defs>
-                <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
-                    markerWidth="6" markerHeight="6"
-                    orient="auto-start-reverse">
-                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
-                </marker>
-            </defs>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen font-sans">
 
-            <!-- Edges -->
-            <!-- Thin Black Edges (Pentagram shape) -->
-            <path class="edge edge-thin" d="M 250 60 L 175 330" data-nodes="5-red,5-blue" marker-end="url(#arrow)"></path>
-            <path class="edge edge-thin" d="M 250 60 L 325 330" data-nodes="5-red,1-lightred" marker-end="url(#arrow)"></path>
-            <path class="edge edge-thin" d="M 100 160 L 325 330" data-nodes="3-green,1-lightred" marker-end="url(#arrow)"></path>
-            <path class="edge edge-thin" d="M 100 160 L 400 160" data-nodes="3-green,11-yellow" marker-end="url(#arrow)"></path>
-            <path class="edge edge-thin" d="M 400 160 L 175 330" data-nodes="11-yellow,5-blue" marker-end="url(#arrow)"></path>
+    <!-- Contenedor principal --><div class="relative w-[700px] h-[900px] bg-white shadow-lg p-8 rounded-lg overflow-hidden" style="background-color: #f7f3ed;">
 
-            <!-- Thick Red Edges (Pentagon shape) -->
-            <path class="edge edge-thick edge-orange" d="M 250 60 L 100 160" data-nodes="5-red,3-green"></path>
-            <path class="edge edge-thick" d="M 100 160 L 175 330" data-nodes="3-green,5-blue"></path>
-            <path class="edge edge-thick" d="M 175 330 L 325 330" data-nodes="5-blue,1-lightred"></path>
-            <path class="edge edge-thick" d="M 325 330 L 400 160" data-nodes="1-lightred,11-yellow"></path>
-            <path class="edge edge-thick edge-orange" d="M 400 160 L 250 60" data-nodes="11-yellow,5-red"></path>
+        <!-- Cruz Roja Central --><div class="absolute z-10 w-8 h-80 bg-red-600 left-1/2 -translate-x-1/2 top-10 rounded-lg shadow-md"></div>
+        <div class="absolute z-10 h-8 w-80 bg-red-600 top-[156px] left-1/2 -translate-x-1/2 rounded-lg shadow-md"></div>
 
-            <!-- Central Bar -->
-            <g class="central-bar">
-                <text x="265" y="142">I.D</text>
-                <rect x="245" y="130" width="10" height="15" class="rect-id"/>
-                <text x="265" y="162">S.J</text>
-                <rect x="245" y="150" width="10" height="15" class="rect-sj"/>
-                <text x="265" y="182">C</text>
-                <rect x="245" y="170" width="10" height="15" class="rect-c"/>
-                <text x="265" y="207">V.B</text>
-                <rect x="245" y="195" width="10" height="15" class="rect-vb"/>
-                <text x="265" y="227">H</text>
-                <rect x="245" y="215" width="10" height="15" class="rect-h"/>
-                <text x="265" y="247">B</text>
-                <rect x="245" y="235" width="10" height="15" class="rect-b"/>
-                <text x="265" y="267">E</text>
-                <rect x="245" y="255" width="10" height="15" class="rect-e"/>
-                <text x="265" y="292">R</text>
-                <rect x="245" y="280" width="10" height="15" class="rect-r"/>
-                <text x="265" y="312">I.G</text>
-                <rect x="245" y="300" width="10" height="15" class="rect-ig"/>
-                <text x="265" y="332">P</text>
-                <rect x="245" y="320" width="10" height="15" class="rect-p"/>
-            </g>
+        <!-- Fila 1: I.D y S.J --><div class="absolute top-10 left-[200px] z-20">
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">I.D</span>
+            <div class="w-28 h-28 rounded-full border-8 border-red-500 bg-white shadow-inner flex items-center justify-center p-2">
+                <!-- SVG para I.D --><svg id="diagram-id" viewBox="0 0 100 100" class="graph-svg">
+                    <defs>
+                        <marker id="arrow-pentagram-id" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                        </marker>
+                    </defs>
+                    <!-- Líneas Exteriores (Pentágono) --><path class="graph-edge" d="M 50,23 L 78,41" data-nodes="5,1" marker-end="url(#arrow-pentagram-id)"></path>
+                    <path class="graph-edge" d="M 78,41 L 67,73" data-nodes="1,8" marker-end="url(#arrow-pentagram-id)"></path>
+                    <path class="graph-edge" d="M 67,73 L 33,73" data-nodes="8,2" marker-end="url(#arrow-pentagram-id)"></path>
+                    <path class="graph-edge" d="M 33,73 L 22,41" data-nodes="2,3" marker-end="url(#arrow-pentagram-id)"></path>
+                    <path class="graph-edge" d="M 22,41 L 50,23" data-nodes="3,5" marker-end="url(#arrow-pentagram-id)"></path>
+                    <!-- Líneas Interiores (Estrella) --><path class="graph-edge" d="M 22,41 L 67,73" data-nodes="3,8" marker-end="url(#arrow-pentagram-id)"></path>
+                    <path class="graph-edge" d="M 78,41 L 33,73" data-nodes="1,2" marker-end="url(#arrow-pentagram-id)"></path>
+                    <path class="graph-edge" d="M 50,23 L 33,73" data-nodes="5,2" marker-end="url(#arrow-pentagram-id)"></path>
+                    <path class="graph-edge" d="M 78,41 L 22,41" data-nodes="1,3" marker-end="url(#arrow-pentagram-id)"></path>
+                    <path class="graph-edge" d="M 67,73 L 50,23" data-nodes="8,5" marker-end="url(#arrow-pentagram-id)"></path>
+                    <!-- Nodos (Círculos) --><g class="graph-node" data-node-id="5" transform="translate(50, 18)">
+                        <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
+                        <text x="0" y="3" text-anchor="middle">5</text>
+                    </g>
+                    <g class="graph-node" data-node-id="3" transform="translate(20, 43)">
+                        <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
+                        <text x="0" y="3" text-anchor="middle">3</text>
+                    </g>
+                    <g class="graph-node" data-node-id="2" transform="translate(33, 78)">
+                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                        <text x="0" y="3" text-anchor="middle">2</text>
+                    </g>
+                    <g class="graph-node" data-node-id="8" transform="translate(67, 78)">
+                        <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
+                        <text x="0" y="3" text-anchor="middle">8</text>
+                    </g>
+                    <g class="graph-node" data-node-id="1" transform="translate(80, 43)">
+                        <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
+                        <text x="0" y="3" text-anchor="middle" fill="#F87171">1</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="absolute top-10 right-[200px] z-20">
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">S.J</span>
+            <div class="w-28 h-28 rounded-full border-8 border-red-500 bg-white shadow-inner flex items-center justify-center p-2">
+                <!-- SVG para S.J --><svg id="diagram-sj" viewBox="0 0 100 100" class="graph-svg">
+                    <defs>
+                        <marker id="arrow-pentagram-sj" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                        </marker>
+                    </defs>
+                    <!-- Líneas (se dibujan primero) --><path class="graph-edge" d="M 50,23 L 78,41" data-nodes="6,1" marker-end="url(#arrow-pentagram-sj)"></path>
+                    <path class="graph-edge" d="M 78,41 L 67,73" data-nodes="1,10" marker-end="url(#arrow-pentagram-sj)"></path>
+                    <path class="graph-edge" d="M 67,73 L 33,73" data-nodes="10,2" marker-end="url(#arrow-pentagram-sj)"></path>
+                    <path class="graph-edge" d="M 33,73 L 22,41" data-nodes="2,3" marker-end="url(#arrow-pentagram-sj)"></path>
+                    <path class="graph-edge" d="M 22,41 L 50,23" data-nodes="3,6" marker-end="url(#arrow-pentagram-sj)"></path>
+                    <path class="graph-edge" d="M 22,41 L 67,73" data-nodes="3,10" marker-end="url(#arrow-pentagram-sj)"></path>
+                    <path class="graph-edge" d="M 78,41 L 33,73" data-nodes="1,2" marker-end="url(#arrow-pentagram-sj)"></path>
+                    <path class="graph-edge" d="M 50,23 L 33,73" data-nodes="6,2" marker-end="url(#arrow-pentagram-sj)"></path>
+                    <path class="graph-edge" d="M 78,41 L 22,41" data-nodes="1,3" marker-end="url(#arrow-pentagram-sj)"></path>
+                    <path class="graph-edge" d="M 67,73 L 50,23" data-nodes="10,6" marker-end="url(#arrow-pentagram-sj)"></path>
+                    <!-- Nodos (se dibujan encima de las líneas) --><g class="graph-node" data-node-id="6" transform="translate(50, 18)">
+                        <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
+                        <text x="0" y="3" text-anchor="middle">6</text>
+                    </g>
+                    <g class="graph-node" data-node-id="3" transform="translate(20, 43)">
+                        <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
+                        <text x="0" y="3" text-anchor="middle">3</text>
+                    </g>
+                    <g class="graph-node" data-node-id="2" transform="translate(33, 78)">
+                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">2</text>
+                    </g>
+                    <g class="graph-node" data-node-id="10" transform="translate(67, 78)">
+                        <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">10</text>
+                    </g>
+                    <g class="graph-node" data-node-id="1" transform="translate(80, 43)">
+                        <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
+                        <text x="0" y="3" text-anchor="middle" fill="#F87171">1</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
 
-            <!-- Nodes -->
-            <g class="node" data-node-id="5-red">
-                <circle cx="250" cy="60" r="40" class="node-circle-outer"></circle>
-                <circle cx="250" cy="60" r="35" class="node-circle-inner"></circle>
-                <text x="250" y="70" class="node-text">5</text>
-            </g>
-            <g class="node" data-node-id="3-green">
-                <circle cx="100" cy="160" r="35" class="node-circle-outer"></circle>
-                <circle cx="100" cy="160" r="30" class="node-circle-inner"></circle>
-                <text x="100" y="165" class="node-text">3</text>
-            </g>
-            <g class="node" data-node-id="11-yellow">
-                <circle cx="400" cy="160" r="40" class="node-circle-outer"></circle>
-                <circle cx="400" cy="160" r="35" class="node-circle-inner"></circle>
-                <text x="400" y="170" class="node-text">11</text>
-            </g>
-            <g class="node" data-node-id="5-blue">
-                <circle cx="175" cy="330" r="35" class="node-circle-outer"></circle>
-                <circle cx="175" cy="330" r="30" class="node-circle-inner"></circle>
-                <text x="175" y="335" class="node-text">5</text>
-            </g>
-            <g class="node" data-node-id="1-lightred">
-                <circle cx="325" cy="330" r="35" class="node-circle-outer"></circle>
-                <circle cx="325" cy="330" r="30" class="node-circle-inner"></circle>
-                <text x="325" y="335" class="node-text">1</text>
-            </g>
-        </svg>
+        <!-- Fila 2: C y PC --><div class="absolute top-52 left-[200px] z-20">
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">C</span>
+            <div class="w-28 h-28 rounded-full border-8 border-red-900 bg-white shadow-inner flex items-center justify-center p-2">
+                <!-- SVG para C --><svg id="diagram-c" viewBox="0 0 100 100" class="graph-svg">
+                    <defs>
+                        <marker id="arrow-pentagram-c" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                        </marker>
+                    </defs>
+                    <path class="graph-edge" d="M 50,23 L 78,41" data-nodes="8,7" marker-end="url(#arrow-pentagram-c)"></path>
+                    <path class="graph-edge" d="M 78,41 L 67,73" data-nodes="7,4" marker-end="url(#arrow-pentagram-c)"></path>
+                    <path class="graph-edge" d="M 67,73 L 33,73" data-nodes="4,3" marker-end="url(#arrow-pentagram-c)"></path>
+                    <path class="graph-edge" d="M 33,73 L 22,41" data-nodes="3,9" marker-end="url(#arrow-pentagram-c)"></path>
+                    <path class="graph-edge" d="M 22,41 L 50,23" data-nodes="9,8" marker-end="url(#arrow-pentagram-c)"></path>
+                    <path class="graph-edge" d="M 22,41 L 67,73" data-nodes="9,4" marker-end="url(#arrow-pentagram-c)"></path>
+                    <path class="graph-edge" d="M 78,41 L 33,73" data-nodes="7,3" marker-end="url(#arrow-pentagram-c)"></path>
+                    <path class="graph-edge" d="M 50,23 L 33,73" data-nodes="8,3" marker-end="url(#arrow-pentagram-c)"></path>
+                    <path class="graph-edge" d="M 78,41 L 22,41" data-nodes="7,9" marker-end="url(#arrow-pentagram-c)"></path>
+                    <path class="graph-edge" d="M 67,73 L 50,23" data-nodes="4,8" marker-end="url(#arrow-pentagram-c)"></path>
+                    <g class="graph-node" data-node-id="8" transform="translate(50, 18)">
+                        <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
+                        <text x="0" y="3" text-anchor="middle">8</text>
+                    </g>
+                    <g class="graph-node" data-node-id="9" transform="translate(20, 43)">
+                        <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
+                        <text x="0" y="3" text-anchor="middle">9</text>
+                    </g>
+                    <g class="graph-node" data-node-id="3" transform="translate(33, 78)">
+                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">3</text>
+                    </g>
+                    <g class="graph-node" data-node-id="4" transform="translate(67, 78)">
+                        <circle r="10" fill="white" stroke="black"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">4</text>
+                    </g>
+                    <g class="graph-node" data-node-id="7" transform="translate(80, 43)">
+                        <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
+                        <text x="0" y="3" text-anchor="middle">7</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="absolute top-52 right-[200px] z-20">
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">PC</span>
+            <div class="w-28 h-28 rounded-full border-8 border-red-900 bg-white shadow-inner flex items-center justify-center p-2">
+                <!-- SVG para PC --><svg id="diagram-pc" viewBox="0 0 100 100" class="graph-svg">
+                    <defs>
+                        <marker id="arrow-pentagram-pc" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                        </marker>
+                    </defs>
+                    <path class="graph-edge" d="M 50,23 L 78,41" data-nodes="8,7" marker-end="url(#arrow-pentagram-pc)"></path>
+                    <path class="graph-edge" d="M 78,41 L 67,73" data-nodes="7,5" marker-end="url(#arrow-pentagram-pc)"></path>
+                    <path class="graph-edge" d="M 67,73 L 33,73" data-nodes="5,3" marker-end="url(#arrow-pentagram-pc)"></path>
+                    <path class="graph-edge" d="M 33,73 L 22,41" data-nodes="3,9" marker-end="url(#arrow-pentagram-pc)"></path>
+                    <path class="graph-edge" d="M 22,41 L 50,23" data-nodes="9,8" marker-end="url(#arrow-pentagram-pc)"></path>
+                    <path class="graph-edge" d="M 22,41 L 67,73" data-nodes="9,5" marker-end="url(#arrow-pentagram-pc)"></path>
+                    <path class="graph-edge" d="M 78,41 L 33,73" data-nodes="7,3" marker-end="url(#arrow-pentagram-pc)"></path>
+                    <path class="graph-edge" d="M 50,23 L 33,73" data-nodes="8,3" marker-end="url(#arrow-pentagram-pc)"></path>
+                    <path class="graph-edge" d="M 78,41 L 22,41" data-nodes="7,9" marker-end="url(#arrow-pentagram-pc)"></path>
+                    <path class="graph-edge" d="M 67,73 L 50,23" data-nodes="5,8" marker-end="url(#arrow-pentagram-pc)"></path>
+                    <g class="graph-node" data-node-id="8" transform="translate(50, 18)">
+                        <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
+                        <text x="0" y="3" text-anchor="middle">8</text>
+                    </g>
+                    <g class="graph-node" data-node-id="9" transform="translate(20, 43)">
+                        <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
+                        <text x="0" y="3" text-anchor="middle">9</text>
+                    </g>
+                    <g class="graph-node" data-node-id="3" transform="translate(33, 78)">
+                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">3</text>
+                    </g>
+                    <g class="graph-node" data-node-id="5" transform="translate(67, 78)">
+                        <circle r="10" fill="white" stroke="black"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">5</text>
+                    </g>
+                    <g class="graph-node" data-node-id="7" transform="translate(80, 43)">
+                        <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
+                        <text x="0" y="3" text-anchor="middle">7</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Fila 3: V.B, H, B, E --><div class="absolute top-[370px] left-[70px] z-20">
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">V.B</span>
+             <div class="relative w-28 h-28">
+                <!-- SVG para V.B --><div class="absolute top-0 left-0 w-28 h-28 rounded-full border-8 border-green-500 bg-white shadow-inner z-10 flex items-center justify-center p-2">
+
+                    <svg id="diagram-vb" viewBox="0 0 100 100" class="graph-svg">
+                        <defs>
+                            <marker id="arrow-pentagram-vb" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                            </marker>
+                        </defs>
+                        <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-vb)"></path>
+                        <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-vb)"></path>
+                        <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-vb)"></path>
+                        <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-vb)"></path>
+                        <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-vb)"></path>
+                        <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-vb)"></path>
+                        <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-vb)"></path>
+                        <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-vb)"></path>
+                        <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-vb)"></path>
+                        <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-vb)"></path>
+                        <g class="graph-node" transform="translate(50, 18)">
+                            <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
+                            <text x="0" y="3" text-anchor="middle">38</text>
+                        </g>
+                        <g class="graph-node" transform="translate(20, 43)">
+                            <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
+                            <text x="0" y="3" text-anchor="middle">41</text>
+                        </g>
+                        <g class="graph-node" transform="translate(33, 78)">
+                            <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                            <text x="0" y="3" text-anchor="middle" style="fill:black;">43</text>
+                        </g>
+                        <g class="graph-node" transform="translate(67, 78)">
+                            <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
+                            <text x="0" y="3" text-anchor="middle" style="fill:#F87171;">44</text>
+                        </g>
+                        <g class="graph-node" transform="translate(80, 43)">
+                            <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
+                            <text x="0" y="3" text-anchor="middle">34</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="absolute top-[370px] left-[200px] z-20">
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">H</span>
+            <div class="w-28 h-28 rounded-full border-8 border-green-700 bg-white shadow-inner flex items-center justify-center p-2">
+                 <!-- SVG para H --><svg viewBox="0 0 100 100" class="graph-svg">
+                    <defs>
+                        <marker id="arrow-pentagram-h" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                        </marker>
+                    </defs>
+                    <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-h)"></path>
+                    <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-h)"></path>
+                    <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-h)"></path>
+                    <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-h)"></path>
+                    <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-h)"></path>
+                    <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-h)"></path>
+                    <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-h)"></path>
+                    <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-h)"></path>
+                    <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-h)"></path>
+                    <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-h)"></path>
+                    <g class="graph-node" transform="translate(50, 18)">
+                        <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
+                        <text x="0" y="3" text-anchor="middle">2</text>
+                    </g>
+                    <g class="graph-node" transform="translate(20, 43)">
+                        <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
+                        <text x="0" y="3" text-anchor="middle">1</text>
+                    </g>
+                    <g class="graph-node" transform="translate(33, 78)">
+                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">8</text>
+                    </g>
+                    <g class="graph-node" transform="translate(67, 78)">
+                        <circle r="10" fill="white" stroke="black"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">4</text>
+                    </g>
+                    <g class="graph-node" transform="translate(80, 43)">
+                        <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
+                        <text x="0" y="3" text-anchor="middle">3</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="absolute top-[370px] right-[200px] z-20">
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">B</span>
+            <div class="w-28 h-28 rounded-full border-8 border-orange-700 bg-white shadow-inner flex items-center justify-center p-2">
+                 <!-- SVG para B --><svg viewBox="0 0 100 100" class="graph-svg">
+                    <defs>
+                        <marker id="arrow-pentagram-b" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                        </marker>
+                    </defs>
+                    <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-b)"></path>
+                    <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-b)"></path>
+                    <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-b)"></path>
+                    <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-b)"></path>
+                    <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-b)"></path>
+                    <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-b)"></path>
+                    <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-b)"></path>
+                    <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-b)"></path>
+                    <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-b)"></path>
+                    <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-b)"></path>
+                    <g class="graph-node" transform="translate(50, 18)">
+                        <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
+                        <text x="0" y="3" text-anchor="middle">2</text>
+                    </g>
+                    <g class="graph-node" transform="translate(20, 43)">
+                        <circle r="10" fill="white" stroke="black"></circle>
+                        <text x="0" y="3" text-anchor="middle">1</text>
+                    </g>
+                    <g class="graph-node" transform="translate(33, 78)">
+                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">9</text>
+                    </g>
+                    <g class="graph-node" transform="translate(67, 78)">
+                        <circle r="10" fill="white" stroke="black"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">5</text>
+                    </g>
+                    <g class="graph-node" transform="translate(80, 43)">
+                        <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
+                        <text x="0" y="3" text-anchor="middle">3</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="absolute top-[370px] right-[70px] z-20">
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">E</span>
+             <div class="relative w-28 h-28">
+                <!-- SVG para E --><div class="absolute top-0 left-0 w-28 h-28 rounded-full border-8 border-orange-500 bg-white shadow-inner z-10 flex items-center justify-center p-2">
+
+                    <svg viewBox="0 0 100 100" class="graph-svg">
+                        <defs>
+                            <marker id="arrow-pentagram-e" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                            </marker>
+                        </defs>
+                        <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-e)"></path>
+                        <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-e)"></path>
+                        <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-e)"></path>
+                        <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-e)"></path>
+                        <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-e)"></path>
+                        <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-e)"></path>
+                        <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-e)"></path>
+                        <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-e)"></path>
+                        <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-e)"></path>
+                        <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-e)"></path>
+                        <g class="graph-node" transform="translate(50, 18)">
+                            <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
+                            <text x="0" y="3" text-anchor="middle">41</text>
+                        </g>
+                        <g class="graph-node" transform="translate(20, 43)">
+                            <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
+                            <text x="0" y="3" text-anchor="middle">43</text>
+                        </g>
+                        <g class="graph-node" transform="translate(33, 78)">
+                            <circle r="10" fill="black" stroke="#333"></circle>
+                            <text x="0" y="3" text-anchor="middle" style="fill:white;">44</text>
+                        </g>
+                        <g class="graph-node" transform="translate(67, 78)">
+                            <circle r="10" fill="#9CA3AF" stroke="#6B7280"></circle>
+                            <text x="0" y="3" text-anchor="middle" style="fill:white;">45</text>
+                        </g>
+                        <g class="graph-node" transform="translate(80, 43)">
+                            <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
+                            <text x="0" y="3" text-anchor="middle">36</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fila 4: V, R, P, I.G --><div class="absolute top-[550px] left-[70px] z-20">
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">V</span>
+             <div class="relative w-28 h-28">
+                <!-- SVG para V --><div class="absolute top-0 left-0 w-28 h-28 rounded-full border-8 border-blue-600 bg-white shadow-inner z-10 flex items-center justify-center p-2">
+
+                    <svg viewBox="0 0 100 100" class="graph-svg">
+                        <defs>
+                            <marker id="arrow-pentagram-v" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                            </marker>
+                        </defs>
+                        <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-v)"></path>
+                        <g class="graph-node" transform="translate(50, 18)">
+                            <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
+                            <text x="0" y="3" text-anchor="middle">50</text>
+                        </g>
+                        <g class="graph-node" transform="translate(20, 43)">
+                            <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
+                            <text x="0" y="3" text-anchor="middle">65</text>
+                        </g>
+                        <g class="graph-node" transform="translate(33, 78)">
+                            <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                            <text x="0" y="3" text-anchor="middle" style="fill:black;">56</text>
+                        </g>
+                        <g class="graph-node" transform="translate(67, 78)">
+                            <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
+                            <text x="0" y="3" text-anchor="middle" style="fill:#F87171;">67</text>
+                        </g>
+                        <g class="graph-node" transform="translate(80, 43)">
+                            <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
+                            <text x="0" y="3" text-anchor="middle">40</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="absolute top-[550px] right-[200px] z-20">
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">P</span>
+             <div class="relative w-28 h-28">
+                <!-- SVG para P --><div class="absolute top-0 left-0 w-28 h-28 rounded-full border-8 border-gray-300 bg-white shadow-inner z-10 flex items-center justify-center p-2">
+
+                    <svg viewBox="0 0 100 100" class="graph-svg">
+                        <defs>
+                            <marker id="arrow-pentagram-p" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                            </marker>
+                        </defs>
+                        <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-p)"></path>
+                        <g class="graph-node" transform="translate(50, 18)">
+                            <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
+                            <text x="0" y="3" text-anchor="middle">5</text>
+                        </g>
+                        <g class="graph-node" transform="translate(20, 43)">
+                            <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
+                            <text x="0" y="3" text-anchor="middle">3</text>
+                        </g>
+                        <g class="graph-node" transform="translate(33, 78)">
+                            <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                            <text x="0" y="3" text-anchor="middle" style="fill:black;">5</text>
+                        </g>
+                        <g class="graph-node" transform="translate(67, 78)">
+                            <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
+                            <text x="0" y="3" text-anchor="middle" style="fill:#F87171;">1</text>
+                        </g>
+                        <g class="graph-node" transform="translate(80, 43)">
+                            <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
+                            <text x="0" y="3" text-anchor="middle">11</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="absolute top-[550px] left-[200px] z-20">
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">R</span>
+            <div class="w-28 h-28 rounded-full border-8 border-blue-900 bg-white shadow-inner flex items-center justify-center p-2">
+                <!-- SVG para R --><svg viewBox="0 0 100 100" class="graph-svg">
+                    <defs>
+                        <marker id="arrow-pentagram-r" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                        </marker>
+                    </defs>
+                    <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class.="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-r)"></path>
+                    <g class="graph-node" transform="translate(50, 18)">
+                        <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
+                        <text x="0" y="3" text-anchor="middle">2</text>
+                    </g>
+                    <g class="graph-node" transform="translate(20, 43)">
+                        <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
+                        <text x="0" y="3" text-anchor="middle">1</text>
+                    </g>
+                    <g class="graph-node" transform="translate(33, 78)">
+                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">10</text>
+                    </g>
+                    <g class="graph-node" transform="translate(67, 78)">
+                        <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:#F87171;">7</text>
+                    </g>
+                    <g class="graph-node" transform="translate(80, 43)">
+                        <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
+                        <text x="0" y="3" text-anchor="middle">3</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="absolute top-[550px] right-[70px] z-20">
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">I.G</span>
+            <div class="w-28 h-28 rounded-full border-8 border-black bg-white shadow-inner flex items-center justify-center p-2">
+                <!-- SVG para I.G --><svg viewBox="0 0 100 100" class="graph-svg">
+                    <defs>
+                        <marker id="arrow-pentagram-ig" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                        </marker>
+                    </defs>
+                    <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <g class="graph-node" transform="translate(50, 18)">
+                        <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
+                        <text x="0" y="3" text-anchor="middle">10</text>
+                    </g>
+                    <g class="graph-node" transform="translate(20, 43)">
+                        <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
+                        <text x="0" y="3" text-anchor="middle">11</text>
+                    </g>
+                    <g class="graph-node" transform="translate(33, 78)">
+                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">5</text>
+                    </g>
+                    <g class="graph-node" transform="translate(67, 78)">
+                        <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:#F87171;">8</text>
+                    </g>
+                    <g class="graph-node" transform="translate(80, 43)">
+                        <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
+                        <text x="0" y="3" text-anchor="middle">9</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
     </div>
-    <script src="js/script.js"></script>
+
+    <!-- Script de interactividad (opcional) --><script>
+        document.querySelectorAll('.graph-svg').forEach(svg => {
+            const nodes = svg.querySelectorAll('.graph-node');
+            const edges = svg.querySelectorAll('.graph-edge');
+            let clickedNode = null;
+
+            nodes.forEach(node => {
+                node.addEventListener('click', () => {
+                    const nodeId = node.dataset.nodeId;
+
+                    // If the same node is clicked, deselect it
+                    if (clickedNode === node) {
+                        resetSelection();
+                        clickedNode = null;
+                        return;
+                    }
+
+                    // Reset previous selection
+                    resetSelection();
+
+                    // Highlight the clicked node
+                    node.classList.add('clicked');
+                    const circle = node.querySelector('circle');
+                    circle.style.transform = 'scale(1.2)';
+                    circle.style.filter = 'brightness(1.2)';
+                    clickedNode = node;
+
+                    // Highlight connected edges
+                    edges.forEach(edge => {
+                        const connectedNodes = edge.dataset.nodes.split(',');
+                        if (connectedNodes.includes(nodeId)) {
+                            edge.style.stroke = '#FFD700'; // Gold color for highlight
+                            edge.style.strokeWidth = '3';
+                        }
+                    });
+                });
+            });
+
+            function resetSelection() {
+                nodes.forEach(n => {
+                    n.classList.remove('clicked');
+                    const circle = n.querySelector('circle');
+                    circle.style.transform = '';
+                    circle.style.filter = '';
+                });
+                edges.forEach(e => {
+                    e.style.stroke = '';
+                    e.style.strokeWidth = '';
+                });
+            }
+        });
+    </script>
 </body>
 </html>
