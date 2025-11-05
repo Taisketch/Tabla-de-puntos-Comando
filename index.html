@@ -3,54 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recreación de Diagrama</title>
+    <title>Diagrama Interactivo (con IA)</title>
     
-
-<script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Estilos CSS personalizados -->
     <style>
-        /* Estilos para las líneas diagonales (RESTAURADOS) */
-        .diag-line {
-            position: absolute;
-            z-index: 5;
-            transform-origin: center;
-        }
-        .diag-green {
-            width: 150px;
-            height: 12px;
-            background-color: #34a853;
-            transform: rotate(-45deg);
-            left: -20px;
-            top: 70px;
-            border-radius: 6px;
-        }
-        .diag-orange {
-            width: 150px;
-            height: 12px;
-            background-color: #fbbc05;
-            transform: rotate(45deg);
-            right: -20px;
-            top: 70px;
-            border-radius: 6px;
-        }
-         .diag-blue {
-            width: 150px;
-            height: 12px;
-            background-color: #4285f4;
-            transform: rotate(45deg);
-            left: -20px;
-            top: 70px;
-            border-radius: 6px;
-        }
-        .diag-gray {
-            width: 150px;
-            height: 12px;
-            background-color: #bdc1c6;
-            transform: rotate(-45deg);
-            right: -20px;
-            top: 70px;
-            border-radius: 6px;
-        }
-        
         /* Estilos para el gráfico SVG interno */
         .graph-svg {
             width: 100%;
@@ -68,7 +27,7 @@
             font-size: 10px;
             font-weight: bold;
             fill: black;
-            pointer-events: none;
+            pointer-events: none; /* El clic se maneja en el grupo 'g' */
         }
         .graph-node:hover circle {
             transform: scale(1.1);
@@ -79,52 +38,43 @@
             stroke-width: 1.5;
             fill: none;
         }
+        /* Estilo para los nodos clickables */
+        .graph-node {
+            cursor: pointer;
+        }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen font-sans">
+<body class="bg-gray-100 flex items-center justify-center min-h-screen font-sans p-4">
 
-    <div class="relative w-[700px] h-[900px] bg-white shadow-lg p-8 rounded-lg overflow-hidden" style="background-color: #f7f3ed;">
+    <!-- Contenedor principal - ALTURA AUMENTADA A 1500px para el asistente de IA -->
+    <div class="relative w-[700px] h-[1500px] bg-white shadow-lg p-8 rounded-lg overflow-hidden" style="background-color: #f7f3ed;">
         
-        
-
-<div class="absolute z-10 w-8 h-80 bg-red-600 left-1/2 -translate-x-1/2 top-10 rounded-lg shadow-md"></div>
+        <!-- Cruz Roja Central -->
+        <div class="absolute z-10 w-8 h-80 bg-red-600 left-1/2 -translate-x-1/2 top-10 rounded-lg shadow-md"></div>
         <div class="absolute z-10 h-8 w-80 bg-red-600 top-[156px] left-1/2 -translate-x-1/2 rounded-lg shadow-md"></div>
 
-        
-
-<div class="absolute top-10 left-[200px] z-20"> 
-
-<span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">I.D</span>
+        <!-- Fila 1: I.D y S.J (Órganos Yang - No interactivos por ahora) -->
+        <div class="absolute top-10 left-[200px] z-20"> 
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">I.D</span>
             <div class="w-28 h-28 rounded-full border-8 border-red-500 bg-white shadow-inner flex items-center justify-center p-2">
-                
-
-<svg viewBox="0 0 100 100" class="graph-svg">
+                <!-- SVG para I.D -->
+                <svg viewBox="0 0 100 100" class="graph-svg">
                     <defs>
                         <marker id="arrow-pentagram-id" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                             <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
                         </marker>
                     </defs>
-
-                    
-
-<path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-id)"></path>
+                    <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-id)"></path>
                     <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-id)"></path>
                     <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-id)"></path>
                     <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-id)"></path>
                     <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-id)"></path>
-                    
-
-<path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-id)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-id)"></path> 
-
-<path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-id)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-id)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-id)"></path> 
-
-<g class="graph-node" transform="translate(50, 18)">
+                    <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-id)"></path> 
+                    <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-id)"></path> 
+                    <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-id)"></path> 
+                    <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-id)"></path> 
+                    <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-id)"></path> 
+                    <g class="graph-node" transform="translate(50, 18)">
                         <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
                         <text x="0" y="3" text-anchor="middle">5</text>
                     </g>
@@ -148,230 +98,160 @@
             </div>
         </div>
         <div class="absolute top-10 right-[200px] z-20"> 
-
-<span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">S.J</span>
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">S.J</span>
             <div class="w-28 h-28 rounded-full border-8 border-red-500 bg-white shadow-inner flex items-center justify-center p-2">
-                
-
-<svg viewBox="0 0 100 100" class="graph-svg">
+                <!-- SVG para S.J -->
+                <svg viewBox="0 0 100 100" class="graph-svg">
                     <defs>
                         <marker id="arrow-pentagram" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                             <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
                         </marker>
                     </defs>
-
-                    
-
-<path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram)"></path>
-                    
-
-<path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram)"></path>
-                    
-
-<path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram)"></path>
-                    
-
-<path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram)"></path>
-                    
-
-<path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram)"></path>
-                    
-                    
-
-<path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram)"></path> 
-
-<path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram)"></path> 
-
-<g class="graph-node" transform="translate(50, 18)">
+                    <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram)"></path>
+                    <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram)"></path>
+                    <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram)"></path>
+                    <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram)"></path>
+                    <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram)"></path>
+                    <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram)"></path> 
+                    <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram)"></path> 
+                    <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram)"></path> 
+                    <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram)"></path> 
+                    <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram)"></path> 
+                    <g class="graph-node" transform="translate(50, 18)">
                         <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
                         <text x="0" y="3" text-anchor="middle">6</text>
                     </g>
-                    
-
-<g class="graph-node" transform="translate(20, 43)">
+                    <g class="graph-node" transform="translate(20, 43)">
                         <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
                         <text x="0" y="3" text-anchor="middle">3</text>
                     </g>
-                    
-
-<g class="graph-node" transform="translate(33, 78)">
+                    <g class="graph-node" transform="translate(33, 78)">
                         <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
                         <text x="0" y="3" text-anchor="middle" style="fill:black;">2</text>
                     </g>
-                    
-
-<g class="graph-node" transform="translate(67, 78)">
+                    <g class="graph-node" transform="translate(67, 78)">
                         <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
                         <text x="0" y="3" text-anchor="middle" style="fill:black;">10</text>
                     </g>
-                    
-
-<g class="graph-node" transform="translate(80, 43)">
+                    <g class="graph-node" transform="translate(80, 43)">
                         <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
                         <text x="0" y="3" text-anchor="middle" fill="#F87171">1</text>
                     </g>
-
                 </svg>
             </div>
         </div>
 
-        
-
-<div class="absolute top-52 left-[200px] z-20"> 
-
-<span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">C</span>
+        <!-- Fila 2: C y PC (Órganos Yin - Interactivos) -->
+        <div class="absolute top-52 left-[200px] z-20"> 
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">C</span>
             <div class="w-28 h-28 rounded-full border-8 border-red-900 bg-white shadow-inner flex items-center justify-center p-2">
-                
-
-<svg viewBox="0 0 100 100" class="graph-svg">
+                <!-- SVG para C (Corazón) -->
+                <svg viewBox="0 0 100 100" class="graph-svg" id="svg-c">
                     <defs>
                         <marker id="arrow-pentagram-c" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                             <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
                         </marker>
                     </defs>
-                    
-
-<path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-c)"></path>
+                    <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-c)"></path>
                     <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-c)"></path>
                     <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-c)"></path>
                     <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-c)"></path>
                     <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-c)"></path>
-                    
-
-<path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-c)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-c)"></path> 
-
-<path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-c)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-c)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-c)"></path> 
-
-<g class="graph-node" transform="translate(50, 18)">
+                    <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-c)"></path> 
+                    <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-c)"></path> 
+                    <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-c)"></path> 
+                    <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-c)"></path> 
+                    <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-c)"></path> 
+                    <g class="graph-node" data-point-id="C-9" transform="translate(50, 18)">
                         <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
-                        <text x="0" y="3" text-anchor="middle">8</text>
-                    </g>
-                    <g class="graph-node" transform="translate(20, 43)">
-                        <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
                         <text x="0" y="3" text-anchor="middle">9</text>
                     </g>
-                    <g class="graph-node" transform="translate(33, 78)">
-                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
-                        <text x="0" y="3" text-anchor="middle" style="fill:black;">3</text>
+                    <g class="graph-node" data-point-id="C-8" transform="translate(20, 43)">
+                        <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
+                        <text x="0" y="3" text-anchor="middle">8</text>
                     </g>
-                    <g class="graph-node" transform="translate(67, 78)">
+                    <g class="graph-node" data-point-id="C-7" transform="translate(33, 78)">
+                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">7</text>
+                    </g>
+                    <g class="graph-node" data-point-id="C-4" transform="translate(67, 78)">
                         <circle r="10" fill="white" stroke="black"></circle>
                         <text x="0" y="3" text-anchor="middle" style="fill:black;">4</text>
                     </g>
-                    <g class="graph-node" transform="translate(80, 43)">
+                    <g class="graph-node" data-point-id="C-3" transform="translate(80, 43)">
                         <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
-                        <text x="0" y="3" text-anchor="middle">7</text>
+                        <text x="0" y="3" text-anchor="middle">3</text>
                     </g>
                 </svg>
             </div>
         </div>
         <div class="absolute top-52 right-[200px] z-20"> 
-
-<span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">PC</span>
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">PC</span>
             <div class="w-28 h-28 rounded-full border-8 border-red-900 bg-white shadow-inner flex items-center justify-center p-2">
-                
-
-<svg viewBox="0 0 100 100" class="graph-svg">
+                <!-- SVG para PC (Pericardio) -->
+                <svg viewBox="0 0 100 100" class="graph-svg" id="svg-pc">
                     <defs>
                         <marker id="arrow-pentagram-pc" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                             <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
                         </marker>
                     </defs>
-                    
-
-<path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-pc)"></path>
+                    <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-pc)"></path>
                     <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-pc)"></path>
                     <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-pc)"></path>
                     <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-pc)"></path>
                     <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-pc)"></path>
-                    
-
-<path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-pc)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-pc)"></path> 
-
-<path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-pc)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-pc)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-pc)"></path> 
-
-<g class="graph-node" transform="translate(50, 18)">
+                    <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-pc)"></path> 
+                    <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-pc)"></path> 
+                    <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-pc)"></path> 
+                    <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-pc)"></path> 
+                    <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-pc)"></path> 
+                    <g class="graph-node" data-point-id="PC-9" transform="translate(50, 18)">
                         <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
-                        <text x="0" y="3" text-anchor="middle">8</text>
-                    </g>
-                    <g class="graph-node" transform="translate(20, 43)">
-                        <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
                         <text x="0" y="3" text-anchor="middle">9</text>
                     </g>
-                    <g class="graph-node" transform="translate(33, 78)">
-                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
-                        <text x="0" y="3" text-anchor="middle" style="fill:black;">3</text>
+                    <g class="graph-node" data-point-id="PC-8" transform="translate(20, 43)">
+                        <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
+                        <text x="0" y="3" text-anchor="middle">8</text>
                     </g>
-                    <g class="graph-node" transform="translate(67, 78)">
+                    <g class="graph-node" data-point-id="PC-7" transform="translate(33, 78)">
+                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">7</text>
+                    </g>
+                    <g class="graph-node" data-point-id="PC-5" transform="translate(67, 78)">
                         <circle r="10" fill="white" stroke="black"></circle>
                         <text x="0" y="3" text-anchor="middle" style="fill:black;">5</text>
                     </g>
-                    <g class="graph-node" transform="translate(80, 43)">
+                    <g class="graph-node" data-point-id="PC-3" transform="translate(80, 43)">
                         <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
-                        <text x="0" y="3" text-anchor="middle">7</text>
+                        <text x="0" y="3" text-anchor="middle">3</text>
                     </g>
                 </svg>
             </div>
         </div>
 
-        
-
-<div class="absolute top-[370px] left-[70px] z-20"> 
-
-<span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">V.B</span>
+        <!-- Fila 3: V.B, H, B, E -->
+        <div class="absolute top-[370px] left-[70px] z-20"> 
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">V.B</span>
              <div class="relative w-28 h-28">
-                <div class="diag-line diag-green"></div>
                 <div class="absolute top-0 left-0 w-28 h-28 rounded-full border-8 border-green-500 bg-white shadow-inner z-10 flex items-center justify-center p-2">
-                    
-
-<svg viewBox="0 0 100 100" class="graph-svg">
+                    <!-- SVG para V.B (Yang - No interactivo) -->
+                    <svg viewBox="0 0 100 100" class="graph-svg">
                         <defs>
                             <marker id="arrow-pentagram-vb" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                                 <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
                             </marker>
                         </defs>
-
-                        
-
-<path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-vb)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-vb)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-vb)"></path> 
-
-<path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-vb)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-vb)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-vb)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-vb)"></path> 
-
-<path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-vb)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-vb)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-vb)"></path> 
-
-<g class="graph-node" transform="translate(50, 18)">
+                        <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-vb)"></path> 
+                        <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-vb)"></path> 
+                        <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-vb)"></path> 
+                        <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-vb)"></path> 
+                        <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-vb)"></path> 
+                        <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-vb)"></path> 
+                        <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-vb)"></path> 
+                        <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-vb)"></path> 
+                        <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-vb)"></path> 
+                        <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-vb)"></path> 
+                        <g class="graph-node" transform="translate(50, 18)">
                             <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
                             <text x="0" y="3" text-anchor="middle">38</text>
                         </g>
@@ -395,164 +275,114 @@
                 </div>
             </div>
         </div>
-        
-
-<div class="absolute top-[370px] left-[200px] z-20"> 
-
-<span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">H</span>
+        <div class="absolute top-[370px] left-[200px] z-20"> 
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">H</span>
             <div class="w-28 h-28 rounded-full border-8 border-green-700 bg-white shadow-inner flex items-center justify-center p-2">
-                 
-
-<svg viewBox="0 0 100 100" class="graph-svg">
+                 <!-- SVG para H (Hígado) -->
+                <svg viewBox="0 0 100 100" class="graph-svg" id="svg-h">
                     <defs>
                         <marker id="arrow-pentagram-h" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                             <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
                         </marker>
                     </defs>
-
-                    
-
-<path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-h)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-h)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-h)"></path> 
-
-<path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-h)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-h)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-h)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-h)"></path> 
-
-<path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-h)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-h)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-h)"></path> 
-
-<g class="graph-node" transform="translate(50, 18)">
+                    <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-h)"></path> 
+                    <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-h)"></path> 
+                    <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-h)"></path> 
+                    <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-h)"></path> 
+                    <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-h)"></path> 
+                    <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-h)"></path> 
+                    <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-h)"></path> 
+                    <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-h)"></path> 
+                    <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-h)"></path> 
+                    <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-h)"></path> 
+                    <g class="graph-node" data-point-id="H-2" transform="translate(50, 18)">
                         <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
                         <text x="0" y="3" text-anchor="middle">2</text>
                     </g>
-                    <g class="graph-node" transform="translate(20, 43)">
+                    <g class="graph-node" data-point-id="H-1" transform="translate(20, 43)">
                         <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
                         <text x="0" y="3" text-anchor="middle">1</text>
                     </g>
-                    <g class="graph-node" transform="translate(33, 78)">
+                    <g class="graph-node" data-point-id="H-8" transform="translate(33, 78)">
                         <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
                         <text x="0" y="3" text-anchor="middle" style="fill:black;">8</text>
                     </g>
-                    <g class="graph-node" transform="translate(67, 78)">
+                    <g class="graph-node" data-point-id="H-4" transform="translate(67, 78)">
                         <circle r="10" fill="white" stroke="black"></circle>
                         <text x="0" y="3" text-anchor="middle" style="fill:black;">4</text>
                     </g>
-                    <g class="graph-node" transform="translate(80, 43)">
+                    <g class="graph-node" data-point-id="H-3" transform="translate(80, 43)">
                         <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
                         <text x="0" y="3" text-anchor="middle">3</text>
                     </g>
                 </svg>
             </div>
         </div>
-        
-
-<div class="absolute top-[370px] right-[200px] z-20"> 
-
-<span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">B</span>
+        <div class="absolute top-[370px] right-[200px] z-20"> 
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">B</span>
             <div class="w-28 h-28 rounded-full border-8 border-orange-700 bg-white shadow-inner flex items-center justify-center p-2">
-                 
-
-<svg viewBox="0 0 100 100" class="graph-svg">
+                 <!-- SVG para B (Bazo) -->
+                <svg viewBox="0 0 100 100" class="graph-svg" id="svg-b">
                     <defs>
                         <marker id="arrow-pentagram-b" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                             <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
                         </marker>
                     </defs>
-
-                    
-
-<path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-b)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-b)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-b)"></path> 
-
-<path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-b)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-b)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-b)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-b)"></path> 
-
-<path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-b)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-b)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-b)"></path> 
-
-<g class="graph-node" transform="translate(50, 18)">
+                    <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-b)"></path> 
+                    <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-b)"></path> 
+                    <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-b)"></path> 
+                    <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-b)"></path> 
+                    <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-b)"></path> 
+                    <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-b)"></path> 
+                    <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-b)"></path> 
+                    <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-b)"></path> 
+                    <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-b)"></path> 
+                    <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-b)"></path> 
+                    <g class="graph-node" data-point-id="B-1" transform="translate(50, 18)">
                         <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
-                        <text x="0" y="3" text-anchor="middle">2</text>
-                    </g>
-                    <g class="graph-node" transform="translate(20, 43)">
-                        <circle r="10" fill="white" stroke="black"></circle>
                         <text x="0" y="3" text-anchor="middle">1</text>
                     </g>
-                    <g class="graph-node" transform="translate(33, 78)">
-                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
-                        <text x="0" y="3" text-anchor="middle" style="fill:black;">9</text>
+                    <g class="graph-node" data-point-id="B-2" transform="translate(20, 43)">
+                        <circle r="10" fill="white" stroke="black"></circle>
+                        <text x="0" y="3" text-anchor="middle">2</text>
                     </g>
-                    <g class="graph-node" transform="translate(67, 78)">
+                    <g class="graph-node" data-point-id="B-3" transform="translate(33, 78)">
+                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">3</text>
+                    </g>
+                    <g class="graph-node" data-point-id="B-5" transform="translate(67, 78)">
                         <circle r="10" fill="white" stroke="black"></circle>
                         <text x="0" y="3" text-anchor="middle" style="fill:black;">5</text>
                     </g>
-                    <g class="graph-node" transform="translate(80, 43)">
+                    <g class="graph-node" data-point-id="B-9" transform="translate(80, 43)">
                         <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
-                        <text x="0" y="3" text-anchor="middle">3</text>
+                        <text x="0" y="3" text-anchor="middle">9</text>
                     </g>
                 </svg>
             </div>
         </div>
         <div class="absolute top-[370px] right-[70px] z-20"> 
-
-<span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">E</span>
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">E</span>
              <div class="relative w-28 h-28">
-                <div class="diag-line diag-orange"></div>
                 <div class="absolute top-0 left-0 w-28 h-28 rounded-full border-8 border-orange-500 bg-white shadow-inner z-10 flex items-center justify-center p-2">
-                    
-
-<svg viewBox="0 0 100 100" class="graph-svg">
+                    <!-- SVG para E (Yang - No interactivo) -->
+                    <svg viewBox="0 0 100 100" class="graph-svg">
                         <defs>
                             <marker id="arrow-pentagram-e" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                                 <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
                             </marker>
                         </defs>
-
-                        
-
-<path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-e)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-e)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-e)"></path> 
-
-<path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-e)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-e)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-e)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-e)"></path> 
-
-<path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-e)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-e)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-e)"></path> 
-
-<g class="graph-node" transform="translate(50, 18)">
+                        <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-e)"></path> 
+                        <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-e)"></path> 
+                        <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-e)"></path> 
+                        <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-e)"></path> 
+                        <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-e)"></path> 
+                        <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-e)"></path> 
+                        <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-e)"></path> 
+                        <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-e)"></path> 
+                        <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-e)"></path> 
+                        <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-e)"></path> 
+                        <g class="graph-node" transform="translate(50, 18)">
                             <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
                             <text x="0" y="3" text-anchor="middle">41</text>
                         </g>
@@ -577,45 +407,29 @@
             </div>
         </div>
 
-        
-
-<div class="absolute top-[550px] left-[70px] z-20"> 
-
-<span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">V</span>
+        <!-- Fila 4: V, R, P, I.G -->
+        <div class="absolute top-[550px] left-[70px] z-20"> 
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">V</span>
              <div class="relative w-28 h-28">
-                <div class="diag-line diag-blue"></div>
                 <div class="absolute top-0 left-0 w-28 h-28 rounded-full border-8 border-blue-600 bg-white shadow-inner z-10 flex items-center justify-center p-2">
-                    
-
-<svg viewBox="0 0 100 100" class="graph-svg">
+                    <!-- SVG para V (Yang - No interactivo) -->
+                    <svg viewBox="0 0 100 100" class="graph-svg">
                         <defs>
                             <marker id="arrow-pentagram-v" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                                 <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
                             </marker>
                         </defs>
-                        
-
-<path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-v)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-v)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-v)"></path> 
-
-<path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-v)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-v)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-v)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-v)"></path> 
-
-<path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-v)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-v)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-v)"></path> 
-
-<g class="graph-node" transform="translate(50, 18)">
+                        <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-v)"></path>
+                        <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-v)"></path>
+                        <g class="graph-node" transform="translate(50, 18)">
                             <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
                             <text x="0" y="3" text-anchor="middle">50</text>
                         </g>
@@ -628,7 +442,7 @@
                             <text x="0" y="3" text-anchor="middle" style="fill:black;">56</text>
                         </g>
                         <g class="graph-node" transform="translate(67, 78)">
-                             <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
+                            <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
                             <text x="0" y="3" text-anchor="middle" style="fill:#F87171;">67</text>
                         </g>
                         <g class="graph-node" transform="translate(80, 43)">
@@ -639,158 +453,115 @@
                 </div>
             </div>
         </div>
-        <div class="absolute top-[550px] right-[70px] z-20"> 
-
-<span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">P</span>
+        <div class="absolute top-[550px] right-[200px] z-20"> 
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">P</span>
              <div class="relative w-28 h-28">
-                <div class="diag-line diag-gray"></div>
                 <div class="absolute top-0 left-0 w-28 h-28 rounded-full border-8 border-gray-300 bg-white shadow-inner z-10 flex items-center justify-center p-2">
-                    
-
-<svg viewBox="0 0 100 100" class="graph-svg">
+                    <!-- SVG para P (Pulmón) -->
+                    <svg viewBox="0 0 100 100" class="graph-svg" id="svg-p">
                         <defs>
                             <marker id="arrow-pentagram-p" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                                 <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
                             </marker>
                         </defs>
-                        
-
-<path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-p)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-p)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-p)"></path> 
-
-<path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-p)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-p)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-p)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-p)"></path> 
-
-<path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-p)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-p)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-p)"></path> 
-
-<g class="graph-node" transform="translate(50, 18)">
+                        <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-p)"></path>
+                        <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-p)"></path>
+                        <g class="graph-node" data-point-id="P-11" transform="translate(50, 18)">
                             <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
-                            <text x="0" y="3" text-anchor="middle">5</text>
-                        </g>
-                        <g class="graph-node" transform="translate(20, 43)">
-                            <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
-                            <text x="0" y="3" text-anchor="middle">3</text>
-                        </g>
-                        <g class="graph-node" transform="translate(33, 78)">
-                            <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
-                            <text x="0" y="3" text-anchor="middle" style="fill:black;">5</text>
-                        </g>
-                        <g class="graph-node" transform="translate(67, 78)">
-                             <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
-                            <text x="0" y="3" text-anchor="middle" style="fill:#F87171;">1</text>
-                        </g>
-                        <g class="graph-node" transform="translate(80, 43)">
-                            <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
                             <text x="0" y="3" text-anchor="middle">11</text>
+                        </g>
+                        <g class="graph-node" data-point-id="P-10" transform="translate(20, 43)">
+                            <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
+                            <text x="0" y="3" text-anchor="middle">10</text>
+                        </g>
+                        <g class="graph-node" data-point-id="P-9" transform="translate(33, 78)">
+                            <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                            <text x="0" y="3" text-anchor="middle" style="fill:black;">9</text>
+                        </g>
+                        <g class="graph-node" data-point-id="P-8" transform="translate(67, 78)">
+                            <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
+                            <text x="0" y="3" text-anchor="middle" style="fill:#F87171;">8</text>
+                        </g>
+                        <g class="graph-node" data-point-id="P-5" transform="translate(80, 43)">
+                            <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
+                            <text x="0" y="3" text-anchor="middle">5</text>
                         </g>
                     </svg>
                 </div>
             </div>
         </div>
         <div class="absolute top-[550px] left-[200px] z-20"> 
-
-<span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">R</span>
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">R</span>
             <div class="w-28 h-28 rounded-full border-8 border-blue-900 bg-white shadow-inner flex items-center justify-center p-2">
-                
-
-<svg viewBox="0 0 100 100" class="graph-svg">
+                <!-- SVG para R (Riñón) -->
+                <svg viewBox="0 0 100 100" class="graph-svg" id="svg-r">
                     <defs>
                         <marker id="arrow-pentagram-r" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                             <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
                         </marker>
                     </defs>
-                    
-
-<path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-r)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-r)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-r)"></path> 
-
-<path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-r)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-r)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-r)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-r)"></path> 
-
-<path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-r)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-r)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-r)"></path> 
-
-<g class="graph-node" transform="translate(50, 18)">
+                    <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-r)"></path>
+                    <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-r)"></path>
+                    <g class="graph-node" data-point-id="R-1" transform="translate(50, 18)">
                         <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
-                        <text x="0" y="3" text-anchor="middle">2</text>
-                    </g>
-                    <g class="graph-node" transform="translate(20, 43)">
-                        <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
                         <text x="0" y="3" text-anchor="middle">1</text>
                     </g>
-                    <g class="graph-node" transform="translate(33, 78)">
-                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
-                        <text x="0" y="3" text-anchor="middle" style="fill:black;">10</text>
+                    <g class="graph-node" data-point-id="R-2" transform="translate(20, 43)">
+                        <circle r="10" fill="#4ADE80" stroke="#15803D"></circle>
+                        <text x="0" y="3" text-anchor="middle">2</text>
                     </g>
-                    <g class="graph-node" transform="translate(67, 78)">
-                         <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
+                    <g class="graph-node" data-point-id="R-3" transform="translate(33, 78)">
+                        <circle r="10" fill="#38BDF8" stroke="#0369A1"></circle>
+                        <text x="0" y="3" text-anchor="middle" style="fill:black;">3</text>
+                    </g>
+                    <g class="graph-node" data-point-id="R-7" transform="translate(67, 78)">
+                        <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
                         <text x="0" y="3" text-anchor="middle" style="fill:#F87171;">7</text>
                     </g>
-                    <g class="graph-node" transform="translate(80, 43)">
+                    <g class="graph-node" data-point-id="R-10" transform="translate(80, 43)">
                         <circle r="10" fill="#FACC15" stroke="#A16207"></circle>
-                        <text x="0" y="3" text-anchor="middle">3</text>
+                        <text x="0" y="3" text-anchor="middle">10</text>
                     </g>
                 </svg>
             </div>
         </div>
-        <div class="absolute top-[550px] right-[200px] z-20"> 
-
-<span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">I.G</span>
+        <div class="absolute top-[550px] right-[70px] z-20"> 
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 font-bold text-gray-700">I.G</span>
             <div class="w-28 h-28 rounded-full border-8 border-black bg-white shadow-inner flex items-center justify-center p-2">
-                
-
-<svg viewBox="0 0 100 100" class="graph-svg">
+                <!-- SVG para I.G (Yang - No interactivo) -->
+                <svg viewBox="0 0 100 100" class="graph-svg">
                     <defs>
                         <marker id="arrow-pentagram-ig" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                             <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
                         </marker>
                     </defs>
-                    
-
-<path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-ig)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-ig)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-ig)"></path> 
-
-<path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-ig)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-ig)"></path> 
-
-<path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-ig)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-ig)"></path> 
-
-<path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-ig)"></path> 
-
-<path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-ig)"></path> 
-
-<path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-ig)"></path> 
-
-<g class="graph-node" transform="translate(50, 18)">
+                    <path class="graph-edge" d="M 50,23 L 78,41" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 78,41 L 67,73" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 67,73 L 33,73" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 33,73 L 22,41" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 22,41 L 50,23" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 22,41 L 67,73" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 78,41 L 33,73" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 50,23 L 33,73" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 78,41 L 22,41" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <path class="graph-edge" d="M 67,73 L 50,23" marker-end="url(#arrow-pentagram-ig)"></path>
+                    <g class="graph-node" transform="translate(50, 18)">
                         <circle r="10" fill="#F87171" stroke="#B91C1C"></circle>
                         <text x="0" y="3" text-anchor="middle">10</text>
                     </g>
@@ -803,7 +574,7 @@
                         <text x="0" y="3" text-anchor="middle" style="fill:black;">5</text>
                     </g>
                     <g class="graph-node" transform="translate(67, 78)">
-                         <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
+                        <circle r="10" fill="white" stroke="#F87171" stroke-width="2"></circle>
                         <text x="0" y="3" text-anchor="middle" style="fill:#F87171;">8</text>
                     </g>
                     <g class="graph-node" transform="translate(80, 43)">
@@ -814,17 +585,715 @@
             </div>
         </div>
 
+        <!-- Fila 5: Tabla de Puntos -->
+        <div class="absolute top-[700px] left-8 right-8 z-20 overflow-x-auto">
+            <table class="w-full border-collapse border border-gray-300 text-center text-xs font-medium">
+                <!-- Encabezado de la Tabla -->
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="border border-gray-300 p-1 w-24"></th>
+                        <th class="border border-gray-300 p-1 bg-gray-200">P</th>
+                        <th class="border border-gray-300 p-1 bg-gray-200">I.G</th>
+                        <th class="border border-gray-300 p-1 bg-yellow-100">E</th>
+                        <th class="border border-gray-300 p-1 bg-yellow-100">B</th>
+                        <th class="border border-gray-300 p-1 bg-red-200">C</th>
+                        <th class="border border-gray-300 p-1 bg-red-200">I.D</th>
+                        <th class="border border-gray-300 p-1 bg-cyan-100">V</th>
+                        <th class="border border-gray-300 p-1 bg-cyan-100">R</th>
+                        <th class="border border-gray-300 p-1 bg-red-200">Pc</th>
+                        <th class="border border-gray-300 p-1 bg-red-200">S.j</th>
+                        <th class="border border-gray-300 p-1 bg-green-200">V.B</th>
+                        <th class="border border-gray-300 p-1 bg-green-200">H</th>
+                    </tr>
+                </thead>
+                <!-- Cuerpo de la Tabla -->
+                <tbody>
+                    <!-- Fila XI -->
+                    <tr>
+                        <th class="border border-gray-300 p-1 text-left pl-2 bg-gray-100">XI</th>
+                        <td class="border border-gray-300 p-1 bg-gray-200">P-6</td>
+                        <td class="border border-gray-300 p-1 bg-gray-200">IG-7</td>
+                        <td class="border border-gray-300 p-1 bg-yellow-100">E-34</td>
+                        <td class="border border-gray-300 p-1 bg-yellow-100">B-8</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">C-6</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">ID-6</td>
+                        <td class="border border-gray-300 p-1 bg-cyan-100">V-63</td>
+                        <td class="border border-gray-300 p-1 bg-cyan-100">R-5</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">Pc-4</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">Sj-7</td>
+                        <td class="border border-gray-300 p-1 bg-green-200">Vb-36</td>
+                        <td class="border border-gray-300 p-1 bg-green-200">H-6</td>
+                    </tr>
+                    <!-- Fila LUO -->
+                    <tr>
+                        <th class="border border-gray-300 p-1 text-left pl-2 bg-gray-100">LUO</th>
+                        <td class="border border-gray-300 p-1 bg-gray-200">P-7</td>
+                        <td class="border border-gray-300 p-1 bg-gray-200">IG-6</td>
+                        <td class="border border-gray-300 p-1 bg-yellow-100">E-40</td>
+                        <td class="border border-gray-300 p-1 bg-yellow-100">B-4</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">C-5</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">ID-7</td>
+                        <td class="border border-gray-300 p-1 bg-cyan-100">V-58</td>
+                        <td class="border border-gray-300 p-1 bg-cyan-100">R-4</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">Pc-6</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">Sj-5</td>
+                        <td class="border border-gray-300 p-1 bg-green-200">Vb-37</td>
+                        <td class="border border-gray-300 p-1 bg-green-200">H-5</td>
+                    </tr>
+                    <!-- Fila YUAN -->
+                    <tr>
+                        <th class="border border-gray-300 p-1 text-left pl-2 bg-gray-100">YUAN</th>
+                        <td class="border border-gray-300 p-1 bg-gray-200">P-9</td>
+                        <td class="border border-gray-300 p-1 bg-gray-200">IG-4</td>
+                        <td class="border border-gray-300 p-1 bg-yellow-100">E-42</td>
+                        <td class="border border-gray-300 p-1 bg-yellow-100">B-3</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">C-7</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">ID-4</td>
+                        <td class="border border-gray-300 p-1 bg-cyan-100">V-64</td>
+                        <td class="border border-gray-300 p-1 bg-cyan-100">R-3</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">Pc-7</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">Sj-4</td>
+                        <td class="border border-gray-300 p-1 bg-green-200">Vb-40</td>
+                        <td class="border border-gray-300 p-1 bg-green-200">H-3</td>
+                    </tr>
+                    <!-- Fila MU -->
+                    <tr>
+                        <th class="border border-gray-300 p-1 text-left pl-2 bg-gray-100">MU</th>
+                        <td class="border border-gray-300 p-1 bg-gray-200">P-1</td>
+                        <td class="border border-gray-300 p-1 bg-gray-200">E-25</td>
+                        <td class="border border-gray-300 p-1 bg-yellow-100">Ren-12</td>
+                        <td class="border border-gray-300 p-1 bg-yellow-100">H-13</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">Ren-14</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">Ren-4</td>
+                        <td class="border border-gray-300 p-1 bg-cyan-100">Ren-3</td>
+                        <td class="border border-gray-300 p-1 bg-cyan-100">VB-25</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">Ren-17</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">Ren-5</td>
+                        <td class="border border-gray-300 p-1 bg-green-200">VB-24</td>
+                        <td class="border border-gray-300 p-1 bg-green-200">H-14</td>
+                    </tr>
+                    <!-- Fila SHU -->
+                    <tr>
+                        <th class="border border-gray-300 p-1 text-left pl-2 bg-gray-100">SHU</th>
+                        <td class="border border-gray-300 p-1 bg-gray-200">V-13</td>
+                        <td class_class="border border-gray-300 p-1 bg-gray-200">V-25</td>
+                        <td class="border border-gray-300 p-1 bg-yellow-100">V-21</td>
+                        <td class="border border-gray-300 p-1 bg-yellow-100">V-20</td>
+                        <td classA="border border-gray-300 p-1 bg-red-200">V-15</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">V-27</td>
+                        <td class="border border-gray-300 p-1 bg-cyan-100">V-28</td>
+                        <td class="border border-gray-300 p-1 bg-cyan-100">V-23</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">V-14</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">V-22</td>
+                        <td class="border border-gray-300 p-1 bg-green-200">V-19</td>
+                        <td class="border border-gray-300 p-1 bg-green-200">V-18</td>
+                    </tr>
+                    <!-- Fila HORA -->
+                    <tr>
+                        <th class="border border-gray-300 p-1 text-left pl-2 bg-gray-100">HORA</th>
+                        <td class="border border-gray-300 p-1 bg-gray-200">3 - 5</td>
+                        <td class="border border-gray-300 p-1 bg-gray-200">5 - 7</td>
+                        <td class="border border-gray-300 p-1 bg-yellow-100">7 - 9</td>
+                        <td class="border border-gray-300 p-1 bg-yellow-100">9 - 11</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">11 - 13</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">13 - 15</td>
+                        <td class="border border-gray-300 p-1 bg-cyan-100">15 - 17</td>
+                        <td class="border border-gray-300 p-1 bg-cyan-100">17 - 19</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">19 - 21</td>
+                        <td class="border border-gray-300 p-1 bg-red-200">21 - 23</td>
+                        <td class="border border-gray-300 p-1 bg-green-200">23 - 1</td>
+                        <td class="border border-gray-300 p-1 bg-green-200">1 - 3</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 
+            ***********************************
+            SECCIÓN CON GEMINI API
+            ***********************************
+        -->
+        <div class="absolute top-[1050px] left-8 right-8 z-30">
+            <div class="border-t-2 border-gray-200 pt-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3 text-center">✨ Asistente de Puntos ✨</h3>
+                <p class="text-center text-gray-600 mb-4">¿Tienes un síntoma? Escríbelo y la IA te sugerirá puntos relevantes.</p>
+                <div class="flex flex-col sm:flex-row gap-2">
+                    <input type="text" id="symptom-input" placeholder="Ej: Dolor de cabeza, insomnio, náuseas..." class="flex-grow border border-gray-300 p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button id="symptom-button" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-200">
+                        Sugerir Puntos
+                    </button>
+                </div>
+                <div id="symptom-results" class="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200 min-h-[100px]">
+                    <!-- Los resultados de la IA aparecerán aquí -->
+                </div>
+            </div>
+        </div>
+
     </div>
 
+    <!-- 
+        ***********************************
+        MODAL PARA INFORMACIÓN DE PUNTOS
+        ***********************************
+    -->
+    <div id="point-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 hidden transition-opacity duration-300">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+            <!-- Encabezado del Modal -->
+            <div class="flex justify-between items-center p-5 border-b border-gray-200 sticky top-0 bg-white">
+                <h3 id="modal-title" class="text-2xl font-bold text-gray-800"></h3>
+                <button id="modal-close-button" class="text-gray-400 hover:text-gray-700 text-3xl">&times;</button>
+            </div>
+            <!-- Contenido del Modal -->
+            <div id="modal-content" class="p-6 text-gray-700 text-base leading-relaxed">
+                <!-- El contenido estático o de la IA se cargará aquí -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 
+        ***********************************
+        SCRIPT PRINCIPAL (CON DATOS INTEGRADOS)
+        ***********************************
+    -->
     <script>
-        // JavaScript podría usarse para hacer los gráficos interactivos,
-        // por ejemplo, al hacer clic en un nodo para resaltar sus conexiones.
-        document.querySelectorAll('.graph-node').forEach(node => {
-            node.addEventListener('click', () => {
-                console.log('Nodo clickeado:', node.querySelector('text').textContent);
-                // Aquí se podría agregar lógica de resaltado
+        // --- Lógica del Modal ---
+        const modal = document.getElementById('point-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+        const modalCloseButton = document.getElementById('modal-close-button');
+
+        function showModal(title, content) {
+            modalTitle.textContent = title;
+            modalContent.innerHTML = content;
+            modal.classList.remove('hidden');
+        }
+
+        function hideModal() {
+            modal.classList.add('hidden');
+        }
+
+        modalCloseButton.addEventListener('click', hideModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                hideModal();
+            }
+        });
+
+        // --- Base de Datos de Puntos (de tu archivo TXT) ---
+        const pointData = {
+            // Hígado (H)
+            "H-1": {
+                title: "H1 (Dadun)",
+                classification: "Clasificación: Punto Jing-Pozo y Punto Madera",
+                details: [
+                    { label: "Nombre y Traducción", text: "Dadun (Gran Montículo)." },
+                    { label: "Localización", text: "En el dedo gordo del pie, 0.1 cun del ángulo lateral de la uña." },
+                    { label: "Fundamentos", text: "Punto Madera en un canal de Madera. Regula el Qi en el Jiao Inferior." },
+                    { label: "Funciones", text: "Regula el Qi en el Jiao Inferior, detiene el sangrado uterino, trata hernias, calma el espíritu." },
+                    { label: "Aplicaciones Clínicas", text: "Hernia, dolor genital, sangrado uterino anormal, micción difícil." }
+                ]
+            },
+            "H-2": {
+                title: "H2 (Xingjian)",
+                classification: "Clasificación: Punto Ying-Manantial y Punto Fuego",
+                details: [
+                    { label: "Nombre y Traducción", text: "Xingjian (Intervalo Activo)." },
+                    { label: "Localización", text: "En el dorso del pie, entre el 1er y 2º dedo, 0.5 cun proximal al borde de la membrana interdigital." },
+                    { label: "Fundamentos", text: "Punto Hijo (Fuego) de un canal de Madera. Es el punto principal para drenar el Fuego de Hígado." },
+                    { label: "Funciones", text: "Drena el Fuego de Hígado, calma el Viento de Hígado, despeja el calor de la sangre, somete el Yang de Hígado." },
+                    { label: "Aplicaciones Clínicas", text: "Cefalea, mareos, ojos rojos, irritabilidad, hipertensión, sangrado uterino por calor, convulsiones." }
+                ]
+            },
+            "H-3": {
+                title: "H3 (Taichong)",
+                classification: "Clasificación: Punto Shu-Arroyo, Yuan-Fuente y Tierra",
+                details: [
+                    { label: "Nombre y Traducción", text: "Taichong (Asalto Supremo)." },
+                    { label: "Localización", text: "En el dorso del pie, en la depresión distal a la unión del 1er y 2º metatarsiano." },
+                    { label: "Fundamentos", text: "Punto Yuan-Fuente. Es el punto más importante para regular el Qi de Hígado en todo el cuerpo." },
+                    { label: "Funciones", text: "Calma el Viento de Hígado, somete el Yang, mueve el estancamiento de Qi, nutre la Sangre de Hígado, calma el espíritu." },
+                    { label: "Aplicaciones Clínicas", text: "Tensión premenstrual, irritabilidad, cefalea tensional, mareos, dolor hipocondríaco, espasmos." }
+                ]
+            },
+            "H-4": {
+                title: "H4 (Zhongfeng)",
+                classification: "Clasificación: Punto Jing-Río y Punto Metal",
+                details: [
+                    { label: "Nombre y Traducción", text: "Zhongfeng (Sello Central)." },
+                    { label: "Localización", text: "1 cun anterior al maléolo medial, en la depresión medial al tendón del tibial anterior." },
+                    { label: "Fundamentos", text: "Punto Metal en un canal de Madera. El Metal controla la Madera, por lo que este punto restringe el Hígado." },
+                    { label: "Funciones", text: "Drena el Hígado, regula el Qi, despeja calor-humedad del Jiao Inferior." },
+                    { label: "Aplicaciones Clínicas", text: "Dolor hipocondríaco, dolor abdominal, hernias, emisión seminal, retención urinaria." }
+                ]
+            },
+            "H-8": {
+                title: "H8 (Ququan)",
+                classification: "Clasificación: Punto He-Mar y Punto Agua",
+                details: [
+                    { label: "Nombre y Traducción", text: "Ququan (Manantial Sinuoso)." },
+                    { label: "Localización", text: "Con la rodilla flexionada, en el extremo medial del pliegue poplíteo, superior al tendón del semimembranoso." },
+                    { label: "Fundamentos", text: "Punto Madre (Agua genera Madera). Es el punto más importante para nutrir la Sangre y el Yin de Hígado." },
+                    { label: "Funciones", text: "Nutre la Sangre y el Yin de Hígado, relaja los tendones, despeja calor-humedad del Jiao Inferior." },
+                    { label: "Aplicaciones Clínicas", text: "Menstruación irregular, amenorrea, infertilidad (por def. de sangre), problemas oculares (sequedad), calambres." }
+                ]
+            },
+            // Corazón (C)
+            "C-9": {
+                title: "C9 (Shaochong)",
+                classification: "Clasificación: Punto Jing-Pozo y Punto Madera",
+                details: [
+                    { label: "Nombre y Traducción", text: "Shaochong (Pequeño Asalto)." },
+                    { label: "Localización", text: "En el dedo meñique, 0.1 cun desde el ángulo radial de la uña." },
+                    { label: "Fundamentos", text: "Punto Madera (Madre) en canal de Fuego (Hijo). Tonifica el Corazón y calma el espíritu. Punto de reanimación." },
+                    { label: "Funciones", text: "Reanima, calma el espíritu, despeja el calor, beneficia la lengua y los ojos." },
+                    { label: "Aplicaciones Clínicas", text: "Coma, síncope, fiebre alta, palpitaciones, dolor de pecho, manía." }
+                ]
+            },
+            "C-8": {
+                title: "C8 (Shaofu)",
+                classification: "Clasificación: Punto Ying-Manantial y Punto Fuego",
+                details: [
+                    { label: "Nombre y Traducción", text: "Shaofu (Pequeño Palacio)." },
+                    { label: "Localización", text: "En la palma, entre el 4º y 5º metacarpiano, donde la punta del meñique toca al cerrar el puño." },
+                    { label: "Fundamentos", text: "Punto Fuego en un canal de Fuego. Despeja el Fuego del Corazón y calma el Shen." },
+                    { label: "Funciones", text: "Despeja el Fuego del Corazón, calma el espíritu, regula el Qi del Jiao Inferior (vía ID)." },
+                    { label: "Aplicaciones Clínicas", text: "Palpitaciones, ansiedad, insomnio, úlceras bucales, enuresis, micción dolorosa (calor transmitido al ID/Vejiga)." }
+                ]
+            },
+            "C-7": {
+                title: "C7 (Shenmen)",
+                classification: "Clasificación: Punto Shu-Arroyo, Yuan-Fuente y Tierra",
+                details: [
+                    { label: "Nombre y Traducción", text: "Shenmen (Puerta del Espíritu)." },
+                    { label: "Localización", text: "En el pliegue de la muñeca, en el lado radial del tendón del flexor ulnar del carpo." },
+                    { label: "Fundamentos", text: "Punto Yuan-Fuente, conecta con el Qi original del Corazón. Punto Tierra (Hijo) en canal de Fuego (Madre), tiene efecto sedante." },
+                    { label: "Funciones", text: "Calma el espíritu (Shen) de forma profunda, nutre la Sangre de Corazón, regula el Qi de Corazón." },
+                    { label: "Aplicaciones Clínicas", text: "Insomnio (especialmente por deficiencia), ansiedad, palpitaciones, mala memoria, demencia, pánico." }
+                ]
+            },
+            "C-4": {
+                title: "C4 (Lingdao)",
+                classification: "Clasificación: Punto Jing-Río y Punto Metal",
+                details: [
+                    { label: "Nombre y Traducción", text: "Lingdao (Camino del Espíritu)." },
+                    { label: "Localización", text: "1.5 cun proximal a C7, en el lado radial del tendón del flexor ulnar del carpo." },
+                    { label: "Fundamentos", text: "Punto Metal en un canal de Fuego. El Metal aporta calma y estructura al Fuego." },
+                    { label: "Funciones", text: "Calma el espíritu, relaja los tendones, beneficia la voz." },
+                    { label: "Aplicaciones Clínicas", text: "Pérdida súbita de la voz, rigidez de la lengua, dolor de codo y brazo, ansiedad, miedo." }
+                ]
+            },
+            "C-3": {
+                title: "C3 (Shaohai)",
+                classification: "Clasificación: Punto He-Mar y Punto Agua",
+                details: [
+                    { label: "Nombre y Traducción", text: "Shaohai (Pequeño Mar)." },
+                    { label: "Localización", text: "Con el codo flexionado, en el extremo medial del pliegue del codo, anterior al epicóndilo medial." },
+                    { label: "Fundamentos", text: "Punto Agua en un canal de Fuego. El Agua controla el Fuego. Calma el Fuego del Corazón y transforma la flema." },
+                    { label: "Funciones", text: "Calma el Fuego de Corazón, transforma la flema, calma el espíritu, relaja los tendones." },
+                    { label: "Aplicaciones Clínicas", text: "Ansiedad, manía, epilepsia (por flema-fuego), dolor de codo, entumecimiento del brazo, temblores." }
+                ]
+            },
+            // Pericardio (PC)
+            "PC-9": {
+                title: "PC9 (Zhongchong)",
+                classification: "Clasificación: Punto Jing-Pozo y Punto Madera",
+                details: [
+                    { label: "Nombre y Traducción", text: "Zhongchong (Asalto Central)." },
+                    { label: "Localización", text: "En la punta del dedo medio." },
+                    { label: "Fundamentos", text: "Punto Madera en un canal de Fuego. Despeja el calor del Jiao Superior y reanima." },
+                    { label: "Funciones", text: "Despeja el calor del Corazón, reanima, calma el espíritu, beneficia la lengua." },
+                    { label: "Aplicaciones Clínicas", text: "Coma, fiebre alta, insolación, rigidez de la lengua, dolor de pecho." }
+                ]
+            },
+            "PC-8": {
+                title: "PC8 (Laogong)",
+                classification: "Clasificación: Punto Ying-Manantial y Punto Fuego",
+                details: [
+                    { label: "Nombre y Traducción", text: "Laogong (Palacio del Trabajo)." },
+                    { label: "Localización", text: "En la palma, entre el 2º y 3º metacarpiano, donde la punta del dedo medio toca al cerrar el puño." },
+                    { label: "Fundamentos", text: "Punto Fuego en un canal de Fuego. El punto más potente para despejar el Fuego del Corazón y Pericardio." },
+                    { label: "Funciones", text: "Despeja el Fuego del Corazón, calma el espíritu, enfría el calor de la sangre." },
+                    { label: "Aplicaciones Clínicas", text: "Úlceras bucales, manía, ansiedad severa, insolación, vómitos, mal aliento." }
+                ]
+            },
+            "PC-7": {
+                title: "PC7 (Daling)",
+                classification: "Clasificación: Punto Shu-Arroyo, Yuan-Fuente y Tierra",
+                details: [
+                    { label: "Nombre y Traducción", text: "Daling (Gran Montículo)." },
+                    { label: "Localización", text: "En el centro del pliegue de la muñeca, entre los tendones del palmar largo y el flexor radial del carpo." },
+                    { label: "Fundamentos", text: "Punto Hijo (Tierra) de un canal de Fuego. Punto Yuan-Fuente. Calma el Corazón y el Estómago." },
+                    { label: "Funciones", text: "Calma el espíritu, armoniza el Estómago, despeja el calor, alivia el dolor de pecho." },
+                    { label: "Aplicaciones Clínicas", text: "Insomnio, ansiedad, palpitaciones, dolor de pecho (angina), vómitos, síndrome del túnel carpiano." }
+                ]
+            },
+            "PC-5": {
+                title: "PC5 (Jianshi)",
+                classification: "Clasificación: Punto Jing-Río y Punto Metal",
+                details: [
+                    { label: "Nombre y Traducción", text: "Jianshi (Intermediario)." },
+                    { label: "Localización", text: "3 cun proximal a PC7, entre los dos tendones (palmar largo y flexor radial del carpo)." },
+                    { label: "Fundamentos", text: "Transforma la flema (visible e invisible) que obstruye el Corazón/Pericardio." },
+                    { label: "Funciones", text: "Transforma la flema (especialmente flema-calor), calma el espíritu, desciende el Qi rebelde." },
+                    { label: "Aplicaciones Clínicas", text: "Manía, epilepsia, dolor de pecho, náuseas, vómitos, 'globo histérico'." }
+                ]
+            },
+            "PC-3": {
+                title: "PC3 (Quze)",
+                classification: "Clasificación: Punto He-Mar y Punto Agua",
+                details: [
+                    { label: "Nombre y Traducción", text: "Quze (Pantano Sinuoso)." },
+                    { label: "Localización", text: "En el pliegue del codo, en el lado ulnar del tendón del bíceps." },
+                    { label: "Fundamentos", text: "Punto Agua en un canal de Fuego. Despeja el calor-humedad del Jiao Superior y Medio." },
+                    { label: "Funciones", text: "Enfría el calor de la sangre, detiene el sangrado, armoniza el Estómago, calma los temblores." },
+                    { label: "Aplicaciones Clínicas", text: "Vómitos por calor, gastroenteritis aguda, insolación, temblores (ej. Parkinson)." }
+                ]
+            },
+            // Bazo (B)
+            "B-1": {
+                title: "B1 (Yinbai)",
+                classification: "Clasificación: Punto Jing-Pozo y Punto Madera",
+                details: [
+                    { label: "Nombre y Traducción", text: "Yinbai (Blanco Oculto)." },
+                    { label: "Localización", text: "En el dedo pulgar del pie, a 0.1 cun del ángulo medial de la uña." },
+                    { label: "Fundamentos", text: "El Qi inicial brota en el canal. La Madera moviliza y expande, útil para iniciar el movimiento y contener Sangre." },
+                    { label: "Funciones", text: "Contiene la Sangre; detiene hemorragias; regula el Bazo. Calma el espíritu." },
+                    { label: "Aplicaciones Clínicas", text: "Metrorragia, epistaxis, hematuria, coma superficial. Trastornos digestivos. Sueños intranquilos." }
+                ]
+            },
+            "B-2": {
+                title: "B2 (Dadu)",
+                classification: "Clasificación: Punto Ying-Manantial y Punto Fuego",
+                details: [
+                    { label: "Nombre y Traducción", text: "Dadu (Gran Capital)." },
+                    { label: "Localización", text: "En la cara medial del dedo pulgar del pie, distal a la primera articulación metatarsofalángica." },
+                    { label: "Fundamentos", text: "El Fuego dinamiza y dispersa calor-humedad del centro." },
+                    { label: "Funciones", text: "Aclara calor-humedad de Bazo/Estómago; calma dolor abdominal. Fortalece el Bazo." },
+                    { label: "Aplicaciones Clínicas", text: "Diarrea por calor-humedad, gastralgias, boca pegajosa. Lumbago agudo." }
+                ]
+            },
+            "B-3": {
+                title: "B3 (Taibai)",
+                classification: "Clasificación: Punto Shu-Arroyo, Yuan-Fuente y Tierra",
+                details: [
+                    { label: "Nombre y Traducción", text: "Taibai (Gran Blanco)." },
+                    { label: "Localización", text: "En la cara medial del pie, en la depresión proximal a la cabeza del primer metatarsiano." },
+                    { label: "Fundamentos", text: "Punto Yuan-fuente. La Tierra transforma y transporta, regula digestión y tonifica el centro." },
+                    { label: "Funciones", text: "Tonifica Bazo; resuelve humedad; regula heces y energía. Calma el Shen." },
+                    { label: "Aplicaciones Clínicas", text: "Diarrea crónica, fatiga, distensión posprandial, pesadez de extremidades. Estreñimiento." }
+                ]
+            },
+            "B-5": {
+                title: "B5 (Shangqiu)",
+                classification: "Clasificación: Punto Jing-Río y Punto Metal",
+                details: [
+                    { label: "Nombre y Traducción", text: "Shangqiu (Montículo del Comerciante)." },
+                    { label: "Localización", text: "En la depresión anterior e inferior al maléolo medial." },
+                    { label: "Fundamentos", text: "El Metal regula y concentra, permitiendo drenar excesos de humedad de la Tierra (Punto Hijo)." },
+                    { label: "Funciones", text: "Seca humedad; regula digestión; moviliza Qi central. Drena exceso y calor-humedad." },
+                    { label: "Aplicaciones Clínicas", text: "Náuseas, diarrea/estreñimiento alternante, dolor de tobillo. Pesadez corporal, ictericia. Artritis." }
+                ]
+            },
+            "B-9": {
+                title: "B9 (Yinlingquan)",
+                classification: "Clasificación: Punto He-Mar y Punto Agua",
+                details: [
+                    { label: "Nombre y Traducción", text: "Yinlingquan (Manantial del Túmulo del Yin)." },
+                    { label: "Localización", text: "Depresión distal al cóndilo medial de la tibia, en la unión de la diáfisis y el cóndilo." },
+                    { label: "Fundamentos", text: "Punto maestro para la humedad. El Agua regula líquidos y drena humedad del centro." },
+                    { label: "Funciones", text: "Drena humedad; mejora diuresis; armoniza Bazo y Riñón." },
+                    { label: "Aplicaciones Clínicas", text: "Edema, diarrea por humedad, dolor de rodilla. Micción difícil, incontinencia, ascitis. Diabetes." }
+                ]
+            },
+            // Pulmón (P)
+            "P-11": {
+                title: "P11 (Shaoshang)",
+                classification: "Clasificación: Punto Jing-Pozo y Punto Madera",
+                details: [
+                    { label: "Nombre y Traducción", text: "Shaoshang (Pequeña Nota Shan)." },
+                    { label: "Localización", text: "En el pulgar, 0.1 cun desde el ángulo radial de la uña." },
+                    { label: "Fundamentos", text: "Punto Madera. Desbloquea la superficie y moviliza el Qi súbitamente. Punto Fantasma." },
+                    { label: "Funciones", text: "Dispersa calor de Pulmón y garganta; libera la superficie; abre los orificios y reanima. Calma el espíritu." },
+                    { label: "Aplicaciones Clínicas", text: "Faringitis aguda, amigdalitis, fiebre alta, epistaxis por calor, síncope (reanimación). Hipertensión." }
+                ]
+            },
+            "P-10": {
+                title: "P10 (Yuji)",
+                classification: "Clasificación: Punto Ying-Manantial y Punto Fuego",
+                details: [
+                    { label: "Nombre y Traducción", text: "Yuji (Borde del Pez)." },
+                    { label: "Localización", text: "En el pulgar, en el punto medio del borde palmar del primer metacarpiano." },
+                    { label: "Fundamentos", text: "Punto Fuego. Elimina calor del canal. Asociado a la regulación del calor interno e inflamaciones." },
+                    { label: "Funciones", text: "Aclara calor de Pulmón; humedece garganta; calma tos seca. Reduce la fiebre." },
+                    { label: "Aplicaciones Clínicas", text: "Tos irritativa, faringitis, afonía aguda, sed intensa. Amigdalitis aguda." }
+                ]
+            },
+            "P-9": {
+                title: "P9 (Taiyuan)",
+                classification: "Clasificación: Punto Shu-Arroyo, Yuan-Fuente y Tierra",
+                details: [
+                    { label: "Nombre y Traducción", text: "Taiyuan (Gran Abismo)." },
+                    { label: "Localización", text: "En la cara ventral de la muñeca, en la cara radial de la arteria radial." },
+                    { label: "Fundamentos", text: "Punto Tierra y Yuan-fuente. Conecta al Yuan Qi y como Hui de vasos armoniza circulación." },
+                    { label: "Funciones", text: "Tonifica Qi y Yin de Pulmón; transforma flema; regula vasos; estabiliza respiración." },
+                    { label: "Aplicaciones Clínicas", text: "Asma crónica, tos con flema, voz débil, palpitaciones, dolor de muñeca. Trombosis." }
+                ]
+            },
+            "P-8": {
+                title: "P8 (Jingqu)",
+                classification: "Clasificación: Punto Jing-Río y Punto Metal",
+                details: [
+                    { label: "Nombre y Traducción", text: "Jingqu (Canal Quebrado)." },
+                    { label: "Localización", text: "Lateral a la arteria radial, 1 cun proximal desde P9." },
+                    { label: "Fundamentos", text: "Punto Metal. Regula y clarifica la voz y respiración." },
+                    { label: "Funciones", text: "Facilita descenso del Qi de Pulmón; regula tos y voz." },
+                    { label: "Aplicaciones Clínicas", text: "Asma por contraflujo, afonía funcional, dolor del antebrazo. Bronquitis aguda." }
+                ]
+            },
+            "P-5": {
+                title: "P5 (Chize)",
+                classification: "Clasificación: Punto He-Mar y Punto Agua",
+                details: [
+                    { label: "Nombre y Traducción", text: "Chize (Pantano de Un Pie de Longitud)." },
+                    { label: "Localización", text: "En el pliegue del codo, en la cara radial del tendón del bíceps." },
+                    { label: "Fundamentos", text: "Punto Agua (Hijo) de un canal de Metal. Drena flema-calor y regula vías de agua." },
+                    { label: "Funciones", text: "Desciende Qi rebelde; elimina flema-calor; desbloquea opresión torácica; regula vías de agua." },
+                    { label: "Aplicaciones Clínicas", text: "Asma con flema espesa, tos productiva, hemoptisis, edema, dolor de codo. Neumonía." }
+                ]
+            },
+            // Riñón (R)
+            "R-1": {
+                title: "R1 (Yongquan)",
+                classification: "Clasificación: Punto Jing-Pozo y Punto Madera",
+                details: [
+                    { label: "Nombre y Traducción", text: "Yongquan (Manantial Burbujeante)." },
+                    { label: "Localización", text: "En la planta del pie, en la depresión que se forma al flexionar los dedos." },
+                    { label: "Fundamentos", text: "Punto Madera (Hijo) en canal de Agua (Madre). Drena el exceso de arriba y tonifica el Yin de abajo." },
+                    { label: "Funciones", text: "Desciende el Fuego por deficiencia, calma el Viento de Hígado, ancla el Yang, reanima." },
+                    { label: "Aplicaciones Clínicas", text: "Insomnio (por Fuego que sube), hipertensión, cefalea, vértigo, síncope, agitación." }
+                ]
+            },
+            "R-2": {
+                title: "R2 (Rangu)",
+                classification: "Clasificación: Punto Ying-Manantial y Punto Fuego",
+                details: [
+                    { label: "Nombre y Traducción", text: "Rangu (Valle Ardiente)." },
+                    { label: "Localización", text: "En la depresión inferior a la tuberosidad del navicular." },
+                    { label: "Fundamentos", text: "Punto Fuego en un canal de Agua. Drena el Fuego por deficiencia de Yin." },
+                    { label: "Funciones", text: "Despeja el Fuego por deficiencia, nutre el Yin de Riñón, regula el Jiao Inferior." },
+                    { label: "Aplicaciones Clínicas", text: "Sudores nocturnos, garganta seca, calor en los 5 centros, sed, diabetes, menstruación irregular." }
+                ]
+            },
+            "R-3": {
+                title: "R3 (Taixi)",
+                classification: "Clasificación: Punto Shu-Arroyo, Yuan-Fuente y Tierra",
+                details: [
+                    { label: "Nombre y Traducción", text: "Taixi (Gran Arroyo)." },
+                    { label: "Localización", text: "En la depresión entre el maléolo medial y el tendón de Aquiles." },
+                    { label: "Fundamentos", text: "Punto Yuan-Fuente. Es el punto más importante para tonificar el Riñón (Yin, Yang, Qi y Esencia)." },
+                    { label: "Funciones", text: "Tonifica el Riñón (Yin y Yang), fortalece la zona lumbar y las rodillas, ancla el Qi de Pulmón." },
+                    { label: "Aplicaciones Clínicas", text: "Dolor lumbar crónico, debilidad de rodillas, impotencia, infertilidad, asma crónica, tinnitus, sordera." }
+                ]
+            },
+            "R-7": {
+                title: "R7 (Fuliu)",
+                classification: "Clasificación: Punto Jing-Río y Punto Metal",
+                details: [
+                    { label: "Nombre y Traducción", text: "Fuliu (Corriente Restaurada)." },
+                    { label: "Localización", text: "2 cun proximal a R3, en el borde anterior del tendón de Aquiles." },
+                    { label: "Fundamentos", text: "Punto Metal (Madre) en canal de Agua (Hijo). Tonifica el Riñón, especialmente el Yang." },
+                    { label: "Funciones", text: "Tonifica el Yang de Riñón, regula la sudoración, regula las vías del agua (drena edema)." },
+                    { label: "Aplicaciones Clínicas", text: "Edema (especialmente en piernas), sudoración excesiva (espontánea o nocturna), dolor lumbar, diarrea crónica." }
+                ]
+            },
+            "R-10": {
+                title: "R10 (Yingu)",
+                classification: "Clasificación: Punto He-Mar y Punto Agua",
+                details: [
+                    { label: "Nombre y Traducción", text: "Yingu (Valle del Yin)." },
+                    { label: "Localización", text: "Con la rodilla flexionada, en el lado medial del hueco poplíteo, entre los tendones del semitendinoso y semimembranoso." },
+                    { label: "Fundamentos", text: "Punto Agua en un canal de Agua. Fortalece el Yin del Jiao Inferior." },
+                    { label: "Funciones", text: "Nutre el Yin de Riñón, beneficia el Jiao Inferior (genitales, útero)." },
+                    { label: "Aplicaciones Clínicas", text: "Impotencia, dolor genital, dolor de rodilla, sangrado uterino, leucorrea." }
+                ]
+            }
+        };
+
+        // --- Configuración de la API de Gemini ---
+        const apiKey = ""; // Dejar en blanco, se proveerá en el entorno
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+        /**
+         * Función principal para llamar a la API de Gemini con reintentos (exponential backoff).
+         * @param {string} userPrompt - El prompt del usuario.
+         * @param {string} systemInstruction - (Opcional) La instrucción del sistema para guiar al modelo.
+         */
+        async function callGemini(userPrompt, systemInstruction = "") {
+            const payload = {
+                contents: [{ parts: [{ text: userPrompt }] }],
+                systemInstruction: systemInstruction ? { parts: [{ text: systemInstruction }] } : undefined,
+            };
+
+            let retries = 5;
+            let delay = 1000; // 1 segundo
+
+            while (retries > 0) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates.length > 0 && result.candidates[0].content?.parts?.[0]?.text) {
+                        // Limpiamos la respuesta de cualquier markdown de bloque de código
+                        return result.candidates[0].content.parts[0].text.replace(/```(html|json)?\n?/g, '').replace(/```\n?/g, '');
+                    } else {
+                        throw new Error("Respuesta de la API inválida o vacía.");
+                    }
+
+                } catch (error) {
+                    console.error("Error en la llamada a Gemini (intento restante " + (retries - 1) + "):", error);
+                    retries--;
+                    if (retries === 0) {
+                        throw new Error("No se pudo obtener respuesta de la API después de varios intentos.");
+                    }
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2; // Duplica el tiempo de espera para el siguiente reintento
+                }
+            }
+        }
+
+        /**
+         * Manejador de clics genérico para todos los SVGs de órganos Yin.
+         * @param {Event} e - El evento de clic.
+         */
+        function handleOrganClick(e) {
+            const node = e.target.closest('.graph-node');
+            if (node && node.dataset.pointId) {
+                const pointId = node.dataset.pointId;
+                const data = pointData[pointId];
+
+                if (data) {
+                    // Si encontramos datos estáticos, los mostramos
+                    let contentHtml = `<h4 class="text-lg font-semibold text-gray-700 mb-3">${data.classification}</h4>`;
+                    contentHtml += '<div class="border-t pt-3">';
+                    data.details.forEach(item => {
+                        contentHtml += `
+                            <div class="mb-2">
+                                <strong class="text-gray-900">${item.label}:</strong>
+                                <span class="text-gray-600">${item.text}</span>
+                            </div>`;
+                    });
+                    contentHtml += '</div>';
+                    
+                    showModal(data.title, contentHtml);
+                } else {
+                    // Si no, llamamos a la IA (como fallback)
+                    console.log(`Datos estáticos no encontrados para ${pointId}. Llamando a Gemini...`);
+                    const systemPrompt = `Eres un experto en acupuntura. Responde en español. Proporciona una descripción concisa (2-3 párrafos) del punto de acupuntura solicitado, explicando su ubicación, funciones principales y para qué síntomas se utiliza. Formatea la respuesta con HTML (párrafos <p> y listas <ul>).`;
+                    const userPrompt = `Describe el punto ${pointId}.`;
+                    
+                    showModal(pointId, "Buscando información detallada... ✨");
+                    
+                    callGemini(userPrompt, systemPrompt)
+                        .then(pointDescription => {
+                            const formattedDescription = pointDescription.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
+                            showModal(pointId, `<p>${formattedDescription}</p>`);
+                        })
+                        .catch(error => {
+                            showModal(pointId, `<p class="text-red-600">Error al obtener la información del punto.</p>`);
+                            console.error(error);
+                        });
+                }
+            }
+        }
+
+        // --- Lógica del DOM y Asistente de Síntomas ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const symptomInput = document.getElementById('symptom-input');
+            const symptomButton = document.getElementById('symptom-button');
+            const symptomResults = document.getElementById('symptom-results');
+
+            // 1. Cuando el usuario busca un síntoma
+            symptomButton.addEventListener('click', async () => {
+                const symptom = symptomInput.value.trim();
+                if (!symptom) {
+                    symptomResults.innerHTML = "<p>Por favor, escribe un síntoma.</p>";
+                    return;
+                }
+
+                symptomResults.innerHTML = "<p>Buscando sugerencias... ✨</p>";
+                symptomButton.disabled = true;
+
+                const systemPrompt = `Eres un asistente experto en medicina china. El usuario te dará un síntoma. Responde en español. Proporciona una lista (en formato HTML <ul>) de 3-5 puntos de acupuntura comúnmente usados. Para cada punto, crea un elemento <li> con un atributo 'data-point-id' (ej: <li data-point-id='H-3' class='text-blue-600 cursor-pointer hover:underline'>H-3: Razón breve...</li>). No añadas ningún otro texto, solo la lista <ul>.`;
+                const userPrompt = `Síntoma: ${symptom}`;
+
+                try {
+                    const htmlList = await callGemini(userPrompt, systemPrompt);
+                    symptomResults.innerHTML = htmlList;
+                } catch (error) {
+                    symptomResults.innerHTML = `<p class="text-red-600">Error al buscar sugerencias. Inténtalo de nuevo.</p>`;
+                    console.error(error);
+                } finally {
+                    symptomButton.disabled = false;
+                }
             });
+
+            // 2. Cuando el usuario hace clic en un punto de la lista de resultados (Delegación de eventos)
+            symptomResults.addEventListener('click', async (e) => {
+                const targetLi = e.target.closest('li[data-point-id]');
+                if (!targetLi) return;
+
+                const pointId = targetLi.dataset.pointId;
+                
+                // Primero, intentar buscar en la base de datos estática
+                if (pointData[pointId]) {
+                    const data = pointData[pointId];
+                    let contentHtml = `<h4 class="text-lg font-semibold text-gray-700 mb-3">${data.classification}</h4>`;
+                    contentHtml += '<div class="border-t pt-3">';
+                    data.details.forEach(item => {
+                        contentHtml += `
+                            <div class="mb-2">
+                                <strong class="text-gray-900">${item.label}:</strong>
+                                <span class="text-gray-600">${item.text}</span>
+                            </div>`;
+                    });
+                    contentHtml += '</div>';
+                    showModal(data.title, contentHtml);
+                } else {
+                    // Si no está en la base de datos, llamar a la IA
+                    showModal(pointId, "Buscando información detallada... ✨");
+                    const systemPrompt = `Eres un experto en acupuntura. Responde en español. Proporciona una descripción concisa (2-3 párrafos) del punto de acupuntura solicitado, explicando su ubicación, funciones principales y para qué síntomas se utiliza. Formatea la respuesta con HTML (párrafos <p> y listas <ul>).`;
+                    const userPrompt = `Describe el punto ${pointId}.`;
+
+                    try {
+                        const pointDescription = await callGemini(userPrompt, systemPrompt);
+                        const formattedDescription = pointDescription.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
+                        showModal(pointId, `<p>${formattedDescription}</p>`);
+                    } catch (error) {
+                        showModal(pointId, `<p class="text-red-600">Error al obtener la información del punto.</sarcasm>`);
+                        console.error(error);
+                    }
+                }
+            });
+
+            // 3. Añadir "escuchadores" de clics a todos los SVGs de órganos Yin
+            document.getElementById('svg-h')?.addEventListener('click', handleOrganClick);
+            document.getElementById('svg-c')?.addEventListener('click', handleOrganClick);
+            document.getElementById('svg-pc')?.addEventListener('click', handleOrganClick);
+            document.getElementById('svg-b')?.addEventListener('click', handleOrganClick);
+            document.getElementById('svg-p')?.addEventListener('click', handleOrganClick);
+            document.getElementById('svg-r')?.addEventListener('click', handleOrganClick);
         });
     </script>
+
 </body>
 </html>
