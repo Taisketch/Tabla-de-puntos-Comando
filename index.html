@@ -850,9 +850,11 @@
             'H-1': {
                 name: 'H-1 Dadun (Gran Montículo)',
                 spanishName: 'Gran Montículo',
-                fundamentals: 'Punto Jing-Pozo del meridiano del Hígado.',
-                functions: ['Regula el Qi del Hígado', 'Regula el Útero y la Vejiga.'],
-                clinicalApplications: ['Hemorragias uterinas.']
+                classification: 'Punto Jing-Pozo y Punto Madera',
+                location: 'En el dedo gordo del pie, 0.1 cun del ángulo lateral de la uña.',
+                fundamentals: 'Punto Madera en un canal de Madera. Regula el Qi en el Jiao Inferior.',
+                functions: ['Regula el Qi en el Jiao Inferior', 'detiene el sangrado uterino', 'trata hernias', 'calma el espíritu'],
+                clinicalApplications: ['Hernia', 'dolor genital', 'sangrado uterino anormal', 'micción difícil']
             },
             'H-2': {
                 name: 'H-2 Xingjian (Intervalo Activo)',
@@ -1070,9 +1072,14 @@
                 const pointData = acupuncturePoints[pointId];
                 if (pointData) {
                     modalTitle.textContent = pointData.name;
-                    modalContent.innerHTML = `
-                        <p><strong>Nombre en español:</strong> ${pointData.spanishName}</p>
-                        <p><strong>Fundamentos:</strong> ${pointData.fundamentals}</p>
+                    let content = `<p><strong>Nombre en español:</strong> ${pointData.spanishName}</p>`;
+                    if (pointData.classification) {
+                        content += `<p><strong>Clasificación:</strong> ${pointData.classification}</p>`;
+                    }
+                    if (pointData.location) {
+                        content += `<p><strong>Localización:</strong> ${pointData.location}</p>`;
+                    }
+                    content += `<p><strong>Fundamentos:</strong> ${pointData.fundamentals}</p>
                         <h4 class="mt-2 font-bold">Funciones:</h4>
                         <ul class="list-disc pl-5">
                             ${pointData.functions.map(f => `<li>${f}</li>`).join('')}
@@ -1082,6 +1089,7 @@
                             ${pointData.clinicalApplications.map(a => `<li>${a}</li>`).join('')}
                         </ul>
                     `;
+                    modalContent.innerHTML = content;
                     modal.classList.remove('hidden');
                 } else {
                     console.log('No hay información para el punto:', pointId);
