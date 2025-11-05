@@ -1,43 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const uploadForm = document.getElementById('upload-form');
-    const portfolioGallery = document.getElementById('portfolio-gallery');
+    const svgs = document.querySelectorAll('.graph-svg');
 
-    if (uploadForm) {
-        uploadForm.addEventListener('submit', (event) => {
-            event.preventDefault();
+    svgs.forEach(svg => {
+        const nodes = svg.querySelectorAll('.graph-node');
+        const edges = svg.querySelectorAll('.graph-edge');
 
-            const workTitleInput = document.getElementById('work-title');
-            const workImageInput = document.getElementById('work-image');
+        nodes.forEach(node => {
+            node.addEventListener('click', () => {
+                // 1. Limpiar la selección en el SVG actual
+                nodes.forEach(n => n.classList.remove('selected'));
+                edges.forEach(e => e.classList.remove('highlight'));
 
-            const title = workTitleInput.value;
-            const imageFile = workImageInput.files[0];
+                // 2. Resaltar el nodo seleccionado
+                node.classList.add('selected');
 
-            if (title && imageFile) {
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    const workElement = document.createElement('div');
-                    workElement.classList.add('work-item');
-
-                    const image = document.createElement('img');
-                    image.src = e.target.result;
-                    image.alt = title;
-
-                    const workTitle = document.createElement('h3');
-                    workTitle.textContent = title;
-
-                    workElement.appendChild(image);
-                    workElement.appendChild(workTitle);
-
-                    portfolioGallery.appendChild(workElement);
-
-                    // Limpiar el formulario
-                    workTitleInput.value = '';
-                    workImageInput.value = '';
-                };
-
-                reader.readAsDataURL(imageFile);
-            }
+                // 3. Resaltar las conexiones
+                const nodeId = node.getAttribute('data-node-id');
+                if (nodeId) {
+                    edges.forEach(edge => {
+                        const connectedNodes = edge.getAttribute('data-nodes');
+                        if (connectedNodes && connectedNodes.split(',').includes(nodeId)) {
+                            edge.classList.add('highlight');
+                        }
+                    });
+                }
+            });
         });
-    }
+    });
 });

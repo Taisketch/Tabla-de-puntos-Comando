@@ -1,75 +1,84 @@
-body {
-    font-family: sans-serif;
-    margin: 0;
-    background-color: #f4f4f4;
-    color: #333;
+/* Estilos para las líneas diagonales (RESTAURADOS) */
+.diag-line {
+    position: absolute;
+    z-index: 5;
+    transform-origin: center;
+}
+.diag-green {
+    width: 150px;
+    height: 12px;
+    background-color: #34a853;
+    transform: rotate(-45deg);
+    left: -20px;
+    top: 70px;
+    border-radius: 6px;
+}
+.diag-orange {
+    width: 150px;
+    height: 12px;
+    background-color: #fbbc05;
+    transform: rotate(45deg);
+    right: -20px;
+    top: 70px;
+    border-radius: 6px;
+}
+ .diag-blue {
+    width: 150px;
+    height: 12px;
+    background-color: #4285f4;
+    transform: rotate(45deg);
+    left: -20px;
+    top: 70px;
+    border-radius: 6px;
+}
+.diag-gray {
+    width: 150px;
+    height: 12px;
+    background-color: #bdc1c6;
+    transform: rotate(-45deg);
+    right: -20px;
+    top: 70px;
+    border-radius: 6px;
 }
 
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 1rem 0;
-    text-align: center;
+/* Estilos para el gráfico SVG interno */
+.graph-svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.graph-node circle {
+    stroke-width: 2;
+    transition: all 0.2s ease-in-out;
+}
+.graph-node text {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    fill: black;
+    pointer-events: none;
+}
+.graph-node:hover circle {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+}
+.graph-edge {
+    stroke: #333;
+    stroke-width: 1.5;
+    fill: none;
+    transition: all 0.2s ease-in-out;
 }
 
-nav ul {
-    padding: 0;
-    list-style: none;
+/* Estilos para los elementos resaltados */
+.graph-edge.highlight {
+    stroke: #d90429; /* Un rojo brillante para el resaltado */
+    stroke-width: 3;
 }
 
-nav ul li {
-    display: inline;
-    margin-right: 20px;
-}
-
-nav a {
-    text-decoration: none;
-    color: #fff;
-}
-
-main {
-    padding: 20px;
-}
-
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #333;
-    color: #fff;
-}
-
-#upload-section {
-    margin-bottom: 40px;
-}
-
-#upload-form {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-}
-
-#upload-form label {
-    margin-bottom: 10px;
-}
-
-#upload-form input, #upload-form button {
-    margin-bottom: 20px;
-    padding: 10px;
-}
-
-#portfolio-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.work-item {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
-
-.work-item img {
-    max-width: 100%;
-    height: auto;
+.graph-node.selected circle {
+    stroke: #d90429;
+    stroke-width: 4;
+    transform: scale(1.1);
 }
