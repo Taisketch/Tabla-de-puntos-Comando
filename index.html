@@ -1077,14 +1077,8 @@
                         content += `<p><strong>Localización:</strong> ${pointData.location}</p>`;
                     }
                     content += `<p><strong>Fundamentos:</strong> ${pointData.fundamentals}</p>
-                        <h4 class="mt-2 font-bold">Funciones:</h4>
-                        <ul class="list-disc pl-5">
-                            ${pointData.functions.map(f => `<li>${f}</li>`).join('')}
-                        </ul>
-                        <h4 class="mt-2 font-bold">Aplicaciones Clínicas:</h4>
-                        <ul class="list-disc pl-5">
-                            ${pointData.clinicalApplications.map(a => `<li>${a}</li>`).join('')}
-                        </ul>
+                        <p class="mt-2"><strong>Funciones:</strong> ${pointData.functions.join(', ')}</p>
+                        <p class="mt-2"><strong>Aplicaciones Clínicas:</strong> ${pointData.clinicalApplications.join(', ')}</p>
                     `;
                     modalContent.innerHTML = content;
                     modal.classList.remove('hidden');
