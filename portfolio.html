@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - Mi Portafolio</title>
+    <title>Portafolio - Mi Portafolio</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -20,8 +20,23 @@
     </header>
 
     <main>
-        <h1>Bienvenido a mi portafolio</h1>
-        <p>Esta es la página de inicio.</p>
+        <h1>Mi Portafolio</h1>
+
+        <section id="upload-section">
+            <h2>Subir nuevo trabajo</h2>
+            <form id="upload-form">
+                <label for="work-title">Título del trabajo:</label>
+                <input type="text" id="work-title" required>
+                <label for="work-image">Seleccionar imagen:</label>
+                <input type="file" id="work-image" accept="image/*" required>
+                <button type="submit">Subir trabajo</button>
+            </form>
+        </section>
+
+        <section id="portfolio-gallery">
+            <h2>Mis Trabajos</h2>
+            <!-- Los trabajos subidos se mostrarán aquí -->
+        </section>
     </main>
 
     <footer>
