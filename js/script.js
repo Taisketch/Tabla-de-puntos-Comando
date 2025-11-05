@@ -1,30 +1,38 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const svgs = document.querySelectorAll('.graph-svg');
+    const nodes = document.querySelectorAll('.node');
+    const edges = document.querySelectorAll('.edge');
+    let clickedNode = null;
 
-    svgs.forEach(svg => {
-        const nodes = svg.querySelectorAll('.graph-node');
-        const edges = svg.querySelectorAll('.graph-edge');
+    nodes.forEach(node => {
+        node.addEventListener('click', () => {
+            const nodeId = node.dataset.nodeId;
 
-        nodes.forEach(node => {
-            node.addEventListener('click', () => {
-                // 1. Limpiar la selección en el SVG actual
-                nodes.forEach(n => n.classList.remove('selected'));
-                edges.forEach(e => e.classList.remove('highlight'));
+            // If the same node is clicked, deselect it
+            if (clickedNode === node) {
+                resetSelection();
+                clickedNode = null;
+                return;
+            }
 
-                // 2. Resaltar el nodo seleccionado
-                node.classList.add('selected');
+            // Reset previous selection
+            resetSelection();
 
-                // 3. Resaltar las conexiones
-                const nodeId = node.getAttribute('data-node-id');
-                if (nodeId) {
-                    edges.forEach(edge => {
-                        const connectedNodes = edge.getAttribute('data-nodes');
-                        if (connectedNodes && connectedNodes.split(',').includes(nodeId)) {
-                            edge.classList.add('highlight');
-                        }
-                    });
+            // Highlight the clicked node
+            node.classList.add('clicked');
+            clickedNode = node;
+
+            // Highlight connected edges
+            edges.forEach(edge => {
+                const connectedNodes = edge.dataset.nodes.split(',');
+                if (connectedNodes.includes(nodeId)) {
+                    edge.classList.add('highlighted');
                 }
             });
         });
     });
+
+    function resetSelection() {
+        nodes.forEach(n => n.classList.remove('clicked'));
+        edges.forEach(e => e.classList.remove('highlighted'));
+    }
 });
