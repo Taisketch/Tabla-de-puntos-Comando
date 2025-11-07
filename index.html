@@ -710,27 +710,6 @@
             </div>
         </div>
 
-        <!-- 
-            ***********************************
-            SECCIÓN CON GEMINI API
-            ***********************************
-        -->
-        <div class="absolute top-[1050px] left-8 right-8 z-30">
-            <div class="border-t-2 border-gray-200 pt-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-3 text-center">✨ Asistente de Puntos ✨</h3>
-                <p class="text-center text-gray-600 mb-4">¿Tienes un síntoma? Escríbelo y la IA te sugerirá puntos relevantes.</p>
-                <div class="flex flex-col sm:flex-row gap-2">
-                    <input type="text" id="symptom-input" placeholder="Ej: Dolor de cabeza, insomnio, náuseas..." class="flex-grow border border-gray-300 p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <button id="symptom-button" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-200">
-                        Sugerir Puntos
-                    </button>
-                </div>
-                <div id="symptom-results" class="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200 min-h-[100px]">
-                    <!-- Los resultados de la IA aparecerán aquí -->
-                </div>
-            </div>
-        </div>
-
     </div>
 
     <!-- 
@@ -1122,57 +1101,6 @@
             }
         };
 
-        // --- Configuración de la API de Gemini ---
-        const apiKey = ""; // Dejar en blanco, se proveerá en el entorno
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-
-        /**
-         * Función principal para llamar a la API de Gemini con reintentos (exponential backoff).
-         * @param {string} userPrompt - El prompt del usuario.
-         * @param {string} systemInstruction - (Opcional) La instrucción del sistema para guiar al modelo.
-         */
-        async function callGemini(userPrompt, systemInstruction = "") {
-            const payload = {
-                contents: [{ parts: [{ text: userPrompt }] }],
-                systemInstruction: systemInstruction ? { parts: [{ text: systemInstruction }] } : undefined,
-            };
-
-            let retries = 5;
-            let delay = 1000; // 1 segundo
-
-            while (retries > 0) {
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-
-                    const result = await response.json();
-                    
-                    if (result.candidates && result.candidates.length > 0 && result.candidates[0].content?.parts?.[0]?.text) {
-                        // Limpiamos la respuesta de cualquier markdown de bloque de código
-                        return result.candidates[0].content.parts[0].text.replace(/```(html|json)?\n?/g, '').replace(/```\n?/g, '');
-                    } else {
-                        throw new Error("Respuesta de la API inválida o vacía.");
-                    }
-
-                } catch (error) {
-                    console.error("Error en la llamada a Gemini (intento restante " + (retries - 1) + "):", error);
-                    retries--;
-                    if (retries === 0) {
-                        throw new Error("No se pudo obtener respuesta de la API después de varios intentos.");
-                    }
-                    await new Promise(resolve => setTimeout(resolve, delay));
-                    delay *= 2; // Duplica el tiempo de espera para el siguiente reintento
-                }
-            }
-        }
-
         /**
          * Manejador de clics genérico para todos los SVGs de órganos Yin.
          * @param {Event} e - El evento de clic.
@@ -1197,97 +1125,13 @@
                     contentHtml += '</div>';
                     
                     showModal(data.title, contentHtml);
-                } else {
-                    // Si no, llamamos a la IA (como fallback)
-                    console.log(`Datos estáticos no encontrados para ${pointId}. Llamando a Gemini...`);
-                    const systemPrompt = `Eres un experto en acupuntura. Responde en español. Proporciona una descripción concisa (2-3 párrafos) del punto de acupuntura solicitado, explicando su ubicación, funciones principales y para qué síntomas se utiliza. Formatea la respuesta con HTML (párrafos <p> y listas <ul>).`;
-                    const userPrompt = `Describe el punto ${pointId}.`;
-                    
-                    showModal(pointId, "Buscando información detallada... ✨");
-                    
-                    callGemini(userPrompt, systemPrompt)
-                        .then(pointDescription => {
-                            const formattedDescription = pointDescription.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
-                            showModal(pointId, `<p>${formattedDescription}</p>`);
-                        })
-                        .catch(error => {
-                            showModal(pointId, `<p class="text-red-600">Error al obtener la información del punto.</p>`);
-                            console.error(error);
-                        });
                 }
             }
         }
 
-        // --- Lógica del DOM y Asistente de Síntomas ---
+        // --- Lógica del DOM ---
         document.addEventListener('DOMContentLoaded', () => {
-            const symptomInput = document.getElementById('symptom-input');
-            const symptomButton = document.getElementById('symptom-button');
-            const symptomResults = document.getElementById('symptom-results');
-
-            // 1. Cuando el usuario busca un síntoma
-            symptomButton.addEventListener('click', async () => {
-                const symptom = symptomInput.value.trim();
-                if (!symptom) {
-                    symptomResults.innerHTML = "<p>Por favor, escribe un síntoma.</p>";
-                    return;
-                }
-
-                symptomResults.innerHTML = "<p>Buscando sugerencias... ✨</p>";
-                symptomButton.disabled = true;
-
-                const systemPrompt = `Eres un asistente experto en medicina china. El usuario te dará un síntoma. Responde en español. Proporciona una lista (en formato HTML <ul>) de 3-5 puntos de acupuntura comúnmente usados. Para cada punto, crea un elemento <li> con un atributo 'data-point-id' (ej: <li data-point-id='H-3' class='text-blue-600 cursor-pointer hover:underline'>H-3: Razón breve...</li>). No añadas ningún otro texto, solo la lista <ul>.`;
-                const userPrompt = `Síntoma: ${symptom}`;
-
-                try {
-                    const htmlList = await callGemini(userPrompt, systemPrompt);
-                    symptomResults.innerHTML = htmlList;
-                } catch (error) {
-                    symptomResults.innerHTML = `<p class="text-red-600">Error al buscar sugerencias. Inténtalo de nuevo.</p>`;
-                    console.error(error);
-                } finally {
-                    symptomButton.disabled = false;
-                }
-            });
-
-            // 2. Cuando el usuario hace clic en un punto de la lista de resultados (Delegación de eventos)
-            symptomResults.addEventListener('click', async (e) => {
-                const targetLi = e.target.closest('li[data-point-id]');
-                if (!targetLi) return;
-
-                const pointId = targetLi.dataset.pointId;
-                
-                // Primero, intentar buscar en la base de datos estática
-                if (pointData[pointId]) {
-                    const data = pointData[pointId];
-                    let contentHtml = `<h4 class="text-lg font-semibold text-gray-700 mb-3">${data.classification}</h4>`;
-                    contentHtml += '<div class="border-t pt-3">';
-                    data.details.forEach(item => {
-                        contentHtml += `
-                            <div class="mb-2">
-                                <strong class="text-gray-900">${item.label}:</strong>
-                                <span class="text-gray-600">${item.text}</span>
-                            </div>`;
-                    });
-                    contentHtml += '</div>';
-                    showModal(data.title, contentHtml);
-                } else {
-                    // Si no está en la base de datos, llamar a la IA
-                    showModal(pointId, "Buscando información detallada... ✨");
-                    const systemPrompt = `Eres un experto en acupuntura. Responde en español. Proporciona una descripción concisa (2-3 párrafos) del punto de acupuntura solicitado, explicando su ubicación, funciones principales y para qué síntomas se utiliza. Formatea la respuesta con HTML (párrafos <p> y listas <ul>).`;
-                    const userPrompt = `Describe el punto ${pointId}.`;
-
-                    try {
-                        const pointDescription = await callGemini(userPrompt, systemPrompt);
-                        const formattedDescription = pointDescription.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
-                        showModal(pointId, `<p>${formattedDescription}</p>`);
-                    } catch (error) {
-                        showModal(pointId, `<p class="text-red-600">Error al obtener la información del punto.</sarcasm>`);
-                        console.error(error);
-                    }
-                }
-            });
-
-            // 3. Añadir "escuchadores" de clics a todos los SVGs de órganos Yin
+            // Añadir "escuchadores" de clics a todos los SVGs de órganos Yin
             document.getElementById('svg-h')?.addEventListener('click', handleOrganClick);
             document.getElementById('svg-c')?.addEventListener('click', handleOrganClick);
             document.getElementById('svg-pc')?.addEventListener('click', handleOrganClick);
